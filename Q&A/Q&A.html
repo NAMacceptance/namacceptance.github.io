@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&A | Regulatory Acceptance of NAMs</title>
+  <meta name="description" content="Evidence-based Q&A regarding the regulatory acceptance of New Approach Methodologies based on TSAR records.">
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="stylesheet" href="../css/site.css?v=20260827-insights2">
+  <link rel="stylesheet" href="../css/bootstrap-studio.css">
+  <style>
+    /* Extra styles specifiek voor de Q&A pagina */
+    .qa-header {
+      background-color: #f8f9fa;
+      padding: 3rem 0;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .qa-category {
+      margin-bottom: 1.5rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .qa-category-header {
+      background-color: #f1f3f5;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: #212529;
+      transition: background-color 0.2s;
+    }
+
+    .qa-category-header:hover {
+      background-color: #e9ecef;
+    }
+
+    .qa-category-header::after {
+      content: '▼';
+      font-size: 0.8rem;
+      transition: transform 0.3s;
+    }
+
+    .qa-category.active .qa-category-header::after {
+      transform: rotate(180deg);
+    }
+
+    .qa-category-content {
+      display: none;
+      padding: 0;
+    }
+
+    .qa-category.active .qa-category-content {
+      display: block;
+    }
+
+    .qa-item {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .qa-item:last-child {
+      border-bottom: none;
+    }
+
+    .qa-question {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0d6efd; /* Bootstrap primary color */
+      margin-bottom: 1rem;
+    }
+
+    .qa-answer {
+      color: #495057;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .qa-evidence {
+      background-color: #f8f9fa;
+      border-left: 4px solid #6c757d;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+
+    .qa-evidence strong {
+      color: #495057;
+    }
+
+    .qa-ref-section {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 2px solid #dee2e6;
+    }
+
+    .qa-ref-list {
+      padding-left: 1.5rem;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    
+    .qa-ref-list li {
+      margin-bottom: 0.8rem;
+    }
+
+    /* Q&A presentation: aligned with the dashboard’s reading and evidence patterns. */
+    .qa-page { max-width: 1180px; padding-bottom: 64px; }
+    .qa-page .intro-panel { display: block; margin-bottom: 16px !important; padding: 25px 28px; border-color: #cfe0eb; background: linear-gradient(120deg, #edf8fa 0%, #fff 68%); }
+    .qa-page .section-heading { display: block; }
+    .qa-page .section-heading > span { display: block; margin-bottom: 6px; color: #168b98; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .qa-page .section-heading h2 { max-width: 790px; color: #143f70; font-size: 20px; line-height: 1.3; letter-spacing: -.02em; text-transform: none; }
+    .qa-page .intro-panel .qa-answer { max-width: 920px; margin: 13px 0 0; }
+    #qa-container { display: grid; gap: 13px; }
+    .qa-category { margin: 0; overflow: hidden; border: 1px solid #d7e3ec; border-radius: 11px; background: #fff; box-shadow: 0 3px 11px rgba(9, 43, 81, .045); }
+    .qa-category-header { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 17px 20px; border: 0; border-left: 4px solid #299aa4; background: linear-gradient(100deg, #f2f9fa, #fff 72%); color: #174671; font: 800 13px/1.3 Arial, Helvetica, sans-serif; text-align: left; cursor: pointer; transition: background .18s ease, color .18s ease; }
+    .qa-category-header:hover, .qa-category-header:focus-visible { background: #eaf6f7; color: #0d6878; outline: none; }
+    .qa-category-header:focus-visible { box-shadow: inset 0 0 0 3px rgba(56, 169, 180, .32); }
+    .qa-category-header::after { content: '›'; flex: 0 0 26px; width: 26px; height: 26px; display: grid; place-items: center; border: 1px solid #bddde0; border-radius: 50%; background: #fff; color: #168c96; font-size: 23px; font-weight: 400; line-height: 1; transform: rotate(0deg); transition: transform .22s ease, background .18s ease; }
+    .qa-category.active .qa-category-header { background: linear-gradient(100deg, #e8f5f5, #fff 72%); }
+    .qa-category.active .qa-category-header::after { background: #168f98; border-color: #168f98; color: #fff; transform: rotate(90deg); }
+    .qa-category-content { display: none; padding: 3px 20px 8px; }
+    .qa-category.active .qa-category-content { display: block; }
+    .qa-item { padding: 19px 0 20px; border-bottom: 1px solid #e3ebf0; }
+    .qa-item:last-child { border-bottom: 0; }
+    .qa-question { max-width: 940px; margin: 0 0 10px; color: #164b7d; font-size: 14px; font-weight: 700; line-height: 1.45; }
+    .qa-answer { max-width: 940px; margin: 0; color: #53677d; font-size: 12px; line-height: 1.72; }
+    .qa-evidence { max-width: 940px; margin: 13px 0 0; padding: 11px 13px; border: 1px solid #d7e9ea; border-left: 3px solid #2aa1a4; border-radius: 0 6px 6px 0; background: #f3faf9; color: #567486; font-size: 10px; line-height: 1.55; }
+    .qa-evidence strong { color: #14757d; }
+    .qa-ref-section { margin-top: 30px; padding: 24px 26px; border: 1px solid #d7e3ec; border-radius: 11px; background: #fff; box-shadow: 0 3px 11px rgba(9, 43, 81, .04); }
+    .qa-ref-section h2 { margin: 0 0 8px; color: #164671; font-size: 18px; }
+    .qa-ref-list { max-width: 980px; margin: 16px 0 0; padding-left: 20px; color: #647589; font-size: 10px; line-height: 1.55; }
+    .qa-ref-list li { margin-bottom: 10px; }
+    .qa-nav-icon { width: 18px !important; height: 18px; display: inline-grid !important; place-items: center; border: 1px solid currentColor; border-radius: 50%; color: #bed6ef; font-size: 11px !important; font-weight: 800; line-height: 1; }
+    .nav-item.active .qa-nav-icon { color: #4bd1ed; background: rgba(75, 209, 237, .12); }
+    @media (max-width: 760px) { .qa-page { padding-bottom: 36px; } .qa-page .intro-panel { padding: 20px; } .qa-page .section-heading h2 { font-size: 18px; } .qa-category-header { padding: 15px 16px; font-size: 12px; } .qa-category-content { padding: 2px 16px 6px; } .qa-item { padding: 17px 0; } .qa-question { font-size: 13px; } .qa-answer { font-size: 11px; line-height: 1.65; } .qa-ref-section { padding: 20px; } }  </style>
+</head>
+<body>
+<!-- TemplateBeginEditable name="page-content" -->
+<main class="app-shell container-fluid">
+  <aside class="sidebar">
+    <a class="brand" href="../home.html" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home">
+      <img class="brand-logo" src="../images/nam-dashboard-logo-compact.png" alt="Dashboard for Regulatory Acceptance of NAMs"/>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a class="nav-item" href="../home.html"><span aria-hidden="true">⌂</span>Home</a>
+      <a class="nav-item" href="../project-overview/project-overview.html"><span aria-hidden="true">◇</span>Project Overview</a>
+      <a class="nav-item" href="../methodology/methodology.html"><span aria-hidden="true">⌁</span>Methodology</a>
+      <div class="nav-group">
+        <button class="nav-item nav-group-toggle" type="button" aria-expanded="false" aria-controls="explore-submenu">
+          <span aria-hidden="true">⌕</span>
+          <span class="nav-group-label">Explore the data</span>
+          <span class="nav-chevron" aria-hidden="true">›</span>
+        </button>
+        <div class="nav-submenu" id="explore-submenu">
+          <a class="nav-subitem" href="../dictionary/data-guide.html">Data Guide</a>
+          <a class="nav-subitem" href="../explore/explore-data.html">Explore Data</a>
+          <a class="nav-subitem" href="../analysis/analysis-explorer.html">Analysis Explorer</a>
+          <a class="nav-subitem" href="../visualizations/visualizations.html">Visualizations</a>
+        </div>
+      </div>
+      <a class="nav-item active" href="./Q&A.html"><span class="qa-nav-icon" aria-hidden="true">?</span>Q&amp;A</a>
+      <a class="nav-item" href="../findings/findings.html"><span aria-hidden="true">◎</span>Findings</a>
+      <a class="nav-item" href="../downloads/downloads.html"><span aria-hidden="true">⇩</span>Downloads</a>
+    </nav>
+    <div class="sidebar-note">
+      <span>Research release · 25 September 2026</span>
+      <strong>147 TSAR records</strong>
+      <small>147 expert-reviewed</small>
+    </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-logos" aria-label="Institutional affiliations">
+        <a href="https://www.uu.nl/en" target="_blank" rel="noreferrer" aria-label="Utrecht University">
+          <img class="logo-uu" src="../images/utrecht-university.png" alt="Utrecht University"/>
+        </a>
+      </div>
+      <p>Research Project</p>
+      <small>MSc Health &amp; Environment<br/>Utrecht University</small>
+    </div>
+  </aside>
+
+  <section class="workspace">
+    <header class="topbar">
+      <button class="menu-button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <div class="title-wrap">
+        <span class="eyebrow">Evidence-based insights</span>
+        <h1>TSAR Stakeholder Q&A</h1>
+        <p>Evidence-based answers for test developers, reviewers, validators, and regulators.</p>
+      </div>
+      <div class="header-actions">
+        <a class="share-button" href="../explore/explore-data.html">Explore database →</a>
+      </div>
+    </header>
+
+    <div class="content page-content qa-page">
+      
+      <!-- Introduction -->
+      <section class="intro-panel panel card" style="margin-bottom: 2rem;">
+        <div>
+          <div class="section-heading">
+            <span>Context</span>
+            <h2>Based on specific TSAR method records and lifecycle-source documents</h2>
+          </div>
+          <p class="qa-answer">
+            <strong>Evidence note:</strong> The answers below are qualitative syntheses of documented TSAR lifecycle events. Where a question asks what occurs 'most often' or 'how often', the available source material does not by itself support a defensible numerical frequency estimate. In those cases, the answer identifies recurring documented patterns without ranking them statistically. A stopped or incomplete lifecycle record is not treated as proof of scientific failure unless the underlying source explicitly documents a causal problem.
+          </p>
+        </div>
+      </section>
+
+      <!-- Q&A Container -->
+      <div id="qa-container">
+        
+        <!-- Section 1: Test Developers -->
+        <div class="qa-category active">
+          <button class="qa-category-header" type="button" aria-expanded="true">1. Test Developers</button>
+          <div class="qa-category-content">
+            <!-- Q1 -->
+            <div class="qa-item">
+              <div class="qa-question">1. What factors most often prevent NAMs from progressing beyond the submission stage?</div>
+              <div class="qa-answer">
+                The TSAR records do not support a single ranked cause, but several recurring barriers are documented: incomplete or immature submissions, unresolved requests for additional information, loss of submitter follow-up, uncertainty about regulatory relevance, programme prioritisation decisions, and practical access or intellectual-property constraints. These events should be distinguished from scientific invalidity. For example, the automated zebrafish cardiotoxicity assay stopped after requested additional information was not provided, while CAMVA, VitroDerm and the reconstructed-human-epidermis skin-absorption route were closed after submitter communication ceased. PALM and MELN show that material-transfer arrangements can block progression even when a validation route is otherwise feasible (EURL ECVAM, n.d., TM2009-07; TM2008-06; TM2009-10; TM2008-13; TM2010-02; TM2009-02).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-07 Zebrafish cardiotoxicity assay; TM2008-06 CAMVA; TM2009-10 VitroDerm; TM2008-13 Skin absorption RHE; TM2010-02 PALM; TM2009-02 MELN.</div>
+            </div>
+            <!-- Q2 -->
+            <div class="qa-item">
+              <div class="qa-question">2. How clearly should the intended regulatory use of a NAM be defined before submission?</div>
+              <div class="qa-answer">
+                The intended context of use should be defined as specifically as possible before or during submission. TSAR cases show that scientific plausibility alone may not be enough when the regulatory decision that the method is intended to support remains uncertain. GreenScreen was assessed against several proposed regulatory-use scenarios before the route stopped prior to peer review, while the γH2AX ICW submission was not prioritised when its added value within the existing genotoxicity strategy and the supporting mechanistic information were not sufficiently clear. Developers therefore benefit from specifying whether a NAM is intended for screening, classification, prioritisation, waiving, supporting evidence, an IATA/weight-of-evidence role, or stand-alone use (EURL ECVAM, n.d., TM2009-08; TM2014-02).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-08 GreenScreen HC; TM2014-02 γH2AX ICW.</div>
+            </div>
+            <!-- Q3 -->
+            <div class="qa-item">
+              <div class="qa-question">3. What information is most often missing from NAM submissions?</div>
+              <div class="qa-answer">
+                Recurring requests concern protocol and SOP maturity, supporting datasets, reproducibility information, prediction-model details, performance characteristics, applicability information and clarification of the proposed use. Ocular Irritection required several rounds of additional information and a revised submission, including work around Performance Standards for proprietary elements. STE underwent repeated revisions of its evidence package before it was considered sufficiently mature, and LuSens required repeated presubmission and full-submission refinement. In contrast, SENS-IS ultimately illustrates the consequence of a package whose data quality and reproducibility evidence were not adequate for a transparent and reliable peer review (EURL ECVAM, n.d., TM2006-02; TM2008-15; TM2011-10; TM2011-11).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2006-02 Ocular Irritection; TM2008-15 STE; TM2011-10 LuSens; TM2011-11 SENS-IS.</div>
+            </div>
+            <!-- Q4 -->
+            <div class="qa-item">
+              <div class="qa-question">4. Which types of technical limitations most commonly delay or prevent further development?</div>
+              <div class="qa-answer">
+                Documented technical barriers include operator-dependent scoring, protocol variability, inadequate early predictive performance, chemical-class-specific false predictions, limited metabolic competence, product- or matrix-specific interference, and problems related to particular physical or chemical properties. These limitations do not necessarily prevent acceptance. EPISKIN initially showed low predictive performance and substantial over-prediction, but protocol and prediction-model optimisation enabled later progression. BCOP and ICE reached regulatory use with explicit chemical-class and classification-scope limitations managed through defined use conditions rather than eliminated entirely (Fentem et al., 2002; OECD, 2013a, 2013b; EURL ECVAM, n.d., TM2005-04; TM2003-02; TM2003-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2005-04 EPISKIN-RHE; TM2003-02 ICE; TM2003-03 BCOP; Fentem et al. (2002); OECD TG 437 and TG 438.</div>
+            </div>
+            <!-- Q5 -->
+            <div class="qa-item">
+              <div class="qa-question">5. How important is the early definition of a method’s applicability domain?</div>
+              <div class="qa-answer">
+                The evidence indicates that applicability-domain definition is central to regulatory usefulness. Several successful methods achieved acceptance not by demonstrating universal performance but by defining where their results can and cannot be relied upon. Corrositex was accepted with a restricted applicability domain, while BCOP and ICE use explicit interpretation safeguards for chemical classes and classification outcomes that are not handled reliably. This supports defining the intended chemical, mechanistic and decision domain prospectively and refining it as validation evidence accumulates (OECD, 2013a, 2013b; EURL ECVAM, n.d., TM1998-01; TM2003-02; TM2003-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM1998-01 Corrositex; TM2003-02 ICE; TM2003-03 BCOP; OECD TG 437 and TG 438.</div>
+            </div>
+            <!-- Q6 -->
+            <div class="qa-item">
+              <div class="qa-question">6. What evidence on repeatability, reproducibility and transferability should be generated before formal validation?</div>
+              <div class="qa-answer">
+                Developers should generate evidence on within-laboratory repeatability, between-laboratory reproducibility, operator effects, protocol robustness and transferability to independent laboratories as early as feasible. TSAR validation histories repeatedly show that these are active questions rather than formalities. h-CLAT required transferability and within-/between-laboratory reproducibility confirmation; epiCS required additional training after initial within-laboratory reproducibility problems; and the monocyte activation test variants show that even methods that ultimately achieve acceptance can retain product-specific qualification requirements after generic validation (EURL ECVAM, n.d., TM2008-05; TM2009-09; TM2002-01–TM2002-05; Hoffmann et al., 2005; Schindler et al., 2006).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2008-05 h-CLAT; TM2009-09 epiCS SIT; TM2002-01 to TM2002-05 monocyte activation tests; Hoffmann et al. (2005); Schindler et al. (2006).</div>
+            </div>
+            <!-- Q7 -->
+            <div class="qa-item">
+              <div class="qa-question">7. When should regulators or validation bodies be involved during method development?</div>
+              <div class="qa-answer">
+                The TSAR trajectories support involving regulatory and validation expertise before major formal validation commitments are made, particularly where the proposed regulatory role is novel or uncertain. Regulatory-relevance consultation occurred for GreenScreen and other methods before later lifecycle stages, and some routes were not prioritised despite scientific plausibility. Early dialogue can identify whether the claimed context of use is meaningful, whether the evidence package is mature enough, and which remaining uncertainties would still block later use (EURL ECVAM, n.d., TM2009-08; TM2014-02; TM2010-01).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-08 GreenScreen HC; TM2014-02 γH2AX ICW; TM2010-01 ARBA.</div>
+            </div>
+            <!-- Q8 -->
+            <div class="qa-item">
+              <div class="qa-question">8. Which characteristics are associated with NAMs that successfully progress to validation?</div>
+              <div class="qa-answer">
+                Across successful examples, progression is associated with a sufficiently stable protocol, interpretable prediction rules, reproducible performance, an evidence-supported applicability domain and a clearly articulated purpose. Importantly, the method does not have to be perfect before validation. EPISKIN, EpiOcular EIT and epiCS all progressed after identifiable technical or reproducibility problems were resolved through optimisation, additional evidence or training (Fentem et al., 2002; EURL ECVAM, n.d., TM2005-04; TM2008-10; TM2009-09).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2005-04 EPISKIN-RHE; TM2008-10 EpiOcular EIT; TM2009-09 epiCS SIT.</div>
+            </div>
+            <!-- Q9 -->
+            <div class="qa-item">
+              <div class="qa-question">9. How often do methods need protocol revisions or additional data before progressing?</div>
+              <div class="qa-answer">
+                The source material does not justify a numerical percentage, but revision is a recurrent feature of successful as well as unsuccessful routes. EPISKIN required substantial protocol and prediction-model optimisation after weak early performance; EpiOcular EIT required optimisation of the solid-material protocol; Ocular Irritection, STE and LuSens underwent repeated dossier or information revisions. These cases indicate that iterative refinement is a normal part of method maturation and should not automatically be interpreted as failure (Fentem et al., 2002; EURL ECVAM, n.d., TM2005-04; TM2008-10; TM2006-02; TM2008-15; TM2011-10).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2005-04 EPISKIN-RHE; TM2008-10 EpiOcular EIT; TM2006-02 Ocular Irritection; TM2008-15 STE; TM2011-10 LuSens.</div>
+            </div>
+            <!-- Q10 -->
+            <div class="qa-item">
+              <div class="qa-question">10. When is it more appropriate to position a NAM as part of an IATA or weight-of-evidence approach rather than as a stand-alone replacement?</div>
+              <div class="qa-answer">
+                An integrated role is particularly appropriate when a method captures only part of the relevant biology, has a restricted applicability domain, or cannot reliably support the full regulatory classification spectrum on its own. KeratinoSens can miss some sensitisers that depend on bioactivation or slow pre-hapten oxidation, and its recommended role is therefore within an integrated framework. The 3T3 NRU assays similarly support defined decisions within weight-of-evidence approaches rather than complete replacement of acute-toxicity classification. Eye-irritation defined approaches show how complementary methods can be combined to address individual assay limitations (OECD, 2018, 2022; EURL ECVAM, n.d., TM2010-03; TM2003-01; TM2007-03; TM2003-02; TM2003-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2010-03 KeratinoSens; TM2003-01 NRU cytotoxicity; TM2007-03 3T3 NRU; TM2003-02 ICE; TM2003-03 BCOP; OECD TG 442D and TG 467.</div>
+            </div>
+            <!-- Q11 -->
+            <div class="qa-item">
+              <div class="qa-question">11. Which methodological limitations are most often successfully resolved during development or validation?</div>
+              <div class="qa-answer">
+                The clearest resolved obstacles involve protocol optimisation, training, operator standardisation, prediction thresholds, additional endpoints and reproducibility. EPISKIN's early over-prediction and low accuracy were addressed through protocol refinement; EpiOcular's solid-material protocol was optimised; epiCS used additional training to address reproducibility; and the WEC embryotoxicity method required alternative endpoints and prediction models after the original total morphological scoring system could not be reproduced reliably. Fundamental biological coverage limitations are more often managed by restricting scope or integrating other evidence rather than eliminated (Fentem et al., 2002; EURL ECVAM, n.d., TM2005-04; TM2008-10; TM2009-09; TM1999-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2005-04 EPISKIN-RHE; TM2008-10 EpiOcular EIT; TM2009-09 epiCS SIT; TM1999-03 WEC.</div>
+            </div>
+            <!-- Q12 -->
+            <div class="qa-item">
+              <div class="qa-question">12. What can developers learn from NAMs that were discontinued but later progressed through another route?</div>
+              <div class="qa-answer">
+                A discontinued TSAR route is not necessarily the end of method development. MUSST was replaced by the revised U-SENS submission; the earlier SkinEthic HCE route was followed by a revised SkinEthic HCE EIT submission; and ERα-CALUX progressed through external validation and later OECD incorporation despite not being prioritised for an EURL ECVAM-coordinated validation study. Method evolution, resubmission and alternative validation or standardisation routes can therefore represent successful learning rather than simple failure (EURL ECVAM, n.d., TM2009-05; TM2013-02; TM2008-09; TM2015-03; TM2009-11).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-05 MUSST → TM2013-02 U-SENS; TM2008-09 SkinEthic HCE → TM2015-03 SkinEthic HCE EIT; TM2009-11 ERα-CALUX.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Reviewers and Validation Bodies -->
+        <div class="qa-category">
+          <button class="qa-category-header" type="button" aria-expanded="false">2. Reviewers and Validation Bodies</button>
+          <div class="qa-category-content">
+            <!-- Q1 -->
+            <div class="qa-item">
+              <div class="qa-question">1. Which issues most commonly emerge during validation and peer review of NAMs?</div>
+              <div class="qa-answer">
+                Recurring documented issues include within- and between-laboratory reproducibility, protocol standardisation, prediction performance, evidence quality, applicability-domain definition, reference-chemical coverage and the clarity of the proposed regulatory role. These issues occur in methods that ultimately succeed as well as those that stop. Validation is therefore best viewed as a structured process for identifying and resolving decision-relevant uncertainty, not simply as a pass/fail gate (EURL ECVAM, n.d., TM2005-04; TM2008-05; TM2009-09; TM2011-11; TM2004-07).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2005-04 EPISKIN-RHE; TM2008-05 h-CLAT; TM2009-09 epiCS SIT; TM2011-11 SENS-IS; TM2004-07 BALB/c 3T3 CTA.</div>
+            </div>
+            <!-- Q2 -->
+            <div class="qa-item">
+              <div class="qa-question">2. What are the most frequent causes of insufficient reproducibility or transferability?</div>
+              <div class="qa-answer">
+                The source material identifies operator-dependent scoring, training requirements, biological-source variability, incompletely standardised procedures, test-system variability and laboratory-to-laboratory differences as recurrent contributors. For example, epiCS required training after within-laboratory reproducibility problems; BALB/c 3T3 CTA relied on subjective focus scoring and clearer criteria; and the monocyte activation test variants required multi-laboratory evaluation because use of primary cells or whole blood can introduce additional variability (EURL ECVAM, n.d., TM2009-09; TM2004-07; TM2002-01–TM2002-05; Hoffmann et al., 2005).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-09 epiCS SIT; TM2004-07 BALB/c 3T3 CTA; TM2002-01 to TM2002-05 MAT variants.</div>
+            </div>
+            <!-- Q3 -->
+            <div class="qa-item">
+              <div class="qa-question">3. Which types of additional evidence are most often requested during review?</div>
+              <div class="qa-answer">
+                Requests commonly involve additional reproducibility evidence, broader chemical coverage, protocol or prediction-model clarification, data that support the proposed applicability domain, and documentation that allows transparent re-analysis. KeratinoSens required additional within-laboratory reproducibility information; h-CLAT's transferability and reproducibility evidence was central to validation; and SENS-IS peer review ultimately stopped because the quality of submitted data did not permit a transparent, consistent and reliable review (EURL ECVAM, n.d., TM2010-03; TM2008-05; TM2011-11).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2010-03 KeratinoSens; TM2008-05 h-CLAT; TM2011-11 SENS-IS.</div>
+            </div>
+            <!-- Q4 -->
+            <div class="qa-item">
+              <div class="qa-question">4. How often are applicability-domain limitations identified during validation rather than during development?</div>
+              <div class="qa-answer">
+                The available evidence does not support a numerical estimate, but several method histories show the applicability domain becoming more precise during validation and review as broader chemical sets reveal class-specific performance. BCOP and ICE illustrate chemical-class-dependent prediction errors; Corrositex was ultimately accepted only for certain chemical types; and ZFET retained important case-dependent limitations despite successful reproducibility work and OECD standardisation. Applicability should therefore be treated as something that is progressively characterised, not assumed to be fixed at initial development (OECD, 2013a, 2013b; EURL ECVAM, n.d., TM1998-01; TM2003-02; TM2003-03; TM2006-01).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM1998-01 Corrositex; TM2003-02 ICE; TM2003-03 BCOP; TM2006-01 ZFET.</div>
+            </div>
+            <!-- Q5 -->
+            <div class="qa-item">
+              <div class="qa-question">5. Which limitations can usually be resolved through protocol refinement, and which tend to remain?</div>
+              <div class="qa-answer">
+                Limitations linked to exposure conditions, assay timing, scoring rules, operator training, protocol harmonisation and prediction thresholds are often amenable to refinement. EPISKIN, EpiOcular EIT and epiCS provide examples. By contrast, missing metabolic competence, restricted biological-mechanism coverage, inability to determine reversibility, or inability to resolve all regulatory categories tend to remain as design limitations. These are better managed through defined applicability, complementary evidence or integrated approaches than by assuming that further protocol optimisation will remove them (Fentem et al., 2002; OECD, 2013a, 2022; EURL ECVAM, n.d., TM2005-04; TM2008-10; TM2009-09; TM2010-03; TM2003-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2005-04 EPISKIN-RHE; TM2008-10 EpiOcular EIT; TM2009-09 epiCS; TM2010-03 KeratinoSens; TM2003-03 BCOP.</div>
+            </div>
+            <!-- Q6 -->
+            <div class="qa-item">
+              <div class="qa-question">6. How should reviewers distinguish between a fundamental method limitation and a correctable validation issue?</div>
+              <div class="qa-answer">
+                A correctable validation issue is one for which protocol changes, training, additional data or harmonisation can plausibly restore reliable performance. A fundamental limitation is rooted in what the biological or technological system can represent. EPISKIN's early predictive problem proved correctable through optimisation, whereas KeratinoSens' reduced ability to detect some bioactivation-dependent sensitisers reflects mechanistic coverage and is therefore managed through integration with other evidence. BCOP's inability to determine reversibility is similarly a design limitation rather than a simple validation defect (Fentem et al., 2002; OECD, 2013a, 2018; EURL ECVAM, n.d., TM2005-04; TM2010-03; TM2003-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2005-04 EPISKIN-RHE; TM2010-03 KeratinoSens; TM2003-03 BCOP.</div>
+            </div>
+            <!-- Q7 -->
+            <div class="qa-item">
+              <div class="qa-question">7. Which performance characteristics appear most important for successful progression to regulatory consideration?</div>
+              <div class="qa-answer">
+                The TSAR cases repeatedly emphasise reproducibility, transferability, sensitivity and specificity in the intended context, known false-positive and false-negative patterns, protocol robustness and a clearly bounded applicability domain. Reviewers should therefore look beyond a single global accuracy statistic. In BCOP, for example, regulatory interpretation depends materially on known class-specific over- and under-prediction. In the monocyte activation tests, generic validity coexists with product-specific suitability requirements (OECD, 2013a; EURL ECVAM, n.d., TM2003-03; TM2002-01–TM2002-05).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2003-03 BCOP; TM2002-01 to TM2002-05 MAT variants.</div>
+            </div>
+            <!-- Q8 -->
+            <div class="qa-item">
+              <div class="qa-question">8. How often does scientific validation result in regulatory uptake?</div>
+              <div class="qa-answer">
+                The source material does not justify a single conversion percentage, and the method histories show clearly that scientific validation does not guarantee regulatory uptake. Cytosensor completed validation and peer review and entered OECD Test Guideline development, but the guideline project was stopped because the validated technology was no longer commercially available. Cryopreserved human hepatocytes progressed through validation and peer review but OECD later selected the related HepaRG approach for guideline development. These are late-stage implementation and standards-route barriers rather than failures of scientific validation (EURL ECVAM, n.d., TM2004-01; TM2009-13; TM2009-14).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2004-01 Cytosensor; TM2009-13 CryoHeps; TM2009-14 HepaRG.</div>
+            </div>
+            <!-- Q9 -->
+            <div class="qa-item">
+              <div class="qa-question">9. At what stage should the intended regulatory context of use be reassessed?</div>
+              <div class="qa-answer">
+                The intended context of use should be revisited before validation, during peer review and again before standards development or implementation. As evidence accumulates, the defensible use may become narrower, more conditional or more integrated than initially proposed. The 3T3 NRU assays, BCOP, ICE and several embryotoxicity methods show that useful regulatory roles can remain even when the evidence does not support broad one-to-one replacement of the legacy animal test (EURL ECVAM, n.d., TM2003-01; TM2007-03; TM2003-02; TM2003-03; TM1999-01–TM1999-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2003-01 NRU cytotoxicity; TM2007-03 3T3 NRU; TM2003-02 ICE; TM2003-03 BCOP; TM1999-01 to TM1999-03 embryotoxicity methods.</div>
+            </div>
+            <!-- Q10 -->
+            <div class="qa-item">
+              <div class="qa-question">10. When is validation of an integrated approach more appropriate than validation of a single NAM in isolation?</div>
+              <div class="qa-answer">
+                An integrated approach is particularly appropriate when the regulatory decision depends on multiple biological events or evidence streams that no single assay can capture adequately. The OECD defined approaches for serious eye damage and eye irritation combine complementary information sources to manage limitations of individual assays such as BCOP and ICE. Skin-sensitisation methods such as KeratinoSens likewise have intended roles within an IATA because mechanistic coverage is incomplete at the single-assay level (OECD, 2018, 2022; EURL ECVAM, n.d., TM2003-02; TM2003-03; TM2010-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2003-02 ICE; TM2003-03 BCOP; TM2010-03 KeratinoSens; OECD TG 442D and TG 467.</div>
+            </div>
+            <!-- Q11 -->
+            <div class="qa-item">
+              <div class="qa-question">11. Which bottlenecks identified during peer review most often delay subsequent regulatory acceptance?</div>
+              <div class="qa-answer">
+                The evidence identifies insufficient evidence for the claimed regulatory use, incomplete reproducibility evidence, unresolved applicability questions, absence of adequate performance standards and uncertainty about how the method fits existing decision frameworks as recurring late-stage issues. Neutral Red Release and RBC haemolysis completed retrospective validation, but ESAC concluded that the evidence was insufficient to support regulatory recommendation. BALB/c 3T3 CTA required further assessment criteria, procedure refinement and supporting evidence before broader regulatory use could be considered (EURL ECVAM, n.d., TM2004-03; TM2004-04; TM2004-07).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2004-03 Neutral Red Release; TM2004-04 RBC haemolysis; TM2004-07 BALB/c 3T3 CTA.</div>
+            </div>
+            <!-- Q12 -->
+            <div class="qa-item">
+              <div class="qa-question">12. What lessons can be learned from successfully validated NAMs that nevertheless experienced limited regulatory uptake?</div>
+              <div class="qa-answer">
+                Scientific validity and regulatory acceptability answer different questions. A method may be reproducible and scientifically valid but still lack a sufficiently useful regulatory role, practical implementation route, commercial availability or standards pathway. Cytosensor and CryoHeps illustrate post-validation barriers, while the embryotoxicity methods EST, Micromass and WEC were considered scientifically validated but not replacements for reproductive-toxicity testing as a whole. Review should therefore assess both scientific confidence and decision relevance explicitly (EURL ECVAM, n.d., TM2004-01; TM2009-13; TM1999-01–TM1999-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2004-01 Cytosensor; TM2009-13 CryoHeps; TM1999-01 EST; TM1999-02 Micromass; TM1999-03 WEC.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Regulators and Regulatory Authorities -->
+        <div class="qa-category">
+          <button class="qa-category-header" type="button" aria-expanded="false">3. Regulators and Regulatory Authorities</button>
+          <div class="qa-category-content">
+            <!-- Q1 -->
+            <div class="qa-item">
+              <div class="qa-question">1. Which factors most commonly prevent scientifically promising NAMs from progressing to regulatory acceptance?</div>
+              <div class="qa-answer">
+                The TSAR records do not support a single ranked factor, but recurring barriers include unclear regulatory purpose, restricted or insufficiently characterised applicability, incomplete evidence for the proposed decision, dependence on complementary evidence, standards-development barriers and practical implementation constraints. Cytosensor shows that commercial availability can stop a standards route after scientific validation, while GreenScreen illustrates how unresolved regulatory relevance can prevent progression before peer review (EURL ECVAM, n.d., TM2004-01; TM2009-08).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2004-01 Cytosensor; TM2009-08 GreenScreen HC; TM2009-13 CryoHeps; TM2009-14 HepaRG.</div>
+            </div>
+            <!-- Q2 -->
+            <div class="qa-item">
+              <div class="qa-question">2. At what stage does regulatory uncertainty most often become a bottleneck?</div>
+              <div class="qa-answer">
+                Regulatory uncertainty can emerge early during presubmission or submission assessment and can reappear after successful scientific validation. Early in the lifecycle, the central question may be whether the proposed use addresses a regulatory need at all; later, the question becomes how validated results can be incorporated into an existing decision framework. GreenScreen and γH2AX ICW show early regulatory-relevance uncertainty, while ZFET demonstrates that OECD standardisation does not automatically settle every sector-specific replacement question (EURL ECVAM, n.d., TM2009-08; TM2014-02; TM2006-01).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-08 GreenScreen HC; TM2014-02 γH2AX ICW; TM2006-01 ZFET.</div>
+            </div>
+            <!-- Q3 -->
+            <div class="qa-item">
+              <div class="qa-question">3. How important is early regulatory consultation for successful NAM progression?</div>
+              <div class="qa-answer">
+                Early consultation is valuable because it can identify unsupported use claims, unclear contexts of use and missing decision-relevant evidence before a developer commits to a large validation programme. TSAR contains cases in which PARERE or other regulatory bodies were consulted on proposed uses before later stages. Such consultation cannot guarantee acceptance, but it can reveal whether a technically successful validation would still fail to answer the intended regulatory question (EURL ECVAM, n.d., TM2009-08; TM2014-04; TM2026-01).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-08 GreenScreen HC; TM2014-04 devTOXqP; TM2026-01 Lung Surfactant Bioassay.</div>
+            </div>
+            <!-- Q4 -->
+            <div class="qa-item">
+              <div class="qa-question">4. Which types of NAMs are more often accepted as stand-alone methods, and which are used as part of integrated approaches?</div>
+              <div class="qa-answer">
+                The source material suggests that stand-alone acceptance is most feasible when a method can support a clearly bounded regulatory conclusion with acceptable reliability. Methods that capture only one mechanism or part of a classification spectrum are more often positioned as supporting components. BCOP and ICE can support specified eye-damage or non-classification decisions under defined conditions, while KeratinoSens and mechanistic endocrine assays are intended to contribute to broader integrated evidence rather than provide complete apical hazard conclusions on their own (OECD, 2013a, 2013b, 2018, 2022; EURL ECVAM, n.d., TM2003-02; TM2003-03; TM2010-03; TM2008-17; TM2010-07).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2003-02 ICE; TM2003-03 BCOP; TM2010-03 KeratinoSens; TM2008-17 ER-STTA; TM2010-07 AR-CALUX.</div>
+            </div>
+            <!-- Q5 -->
+            <div class="qa-item">
+              <div class="qa-question">5. How often does OECD or other formal standardisation lead to practical regulatory uptake?</div>
+              <div class="qa-answer">
+                Formal standardisation is an important milestone but does not by itself establish universal regulatory sufficiency across sectors. ZFET reached OECD TG 236, yet later analysis under REACH did not support automatic one-to-one replacement of the adult fish acute toxicity test. Conversely, some methods can achieve a useful supporting role in guidance without becoming a complete standalone replacement. Standardisation should therefore be distinguished from sector-specific acceptance and implementation (EURL ECVAM, n.d., TM2006-01; OECD, 2013c).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2006-01 ZFET; OECD TG 236.</div>
+            </div>
+            <!-- Q6 -->
+            <div class="qa-item">
+              <div class="qa-question">6. Which applicability-domain limitations most often restrict regulatory use?</div>
+              <div class="qa-answer">
+                Recurring restrictions involve chemical classes, physicochemical properties, lack of metabolic activation, product or matrix interference, restricted biological mechanisms and inability to determine all classification categories. BCOP and ICE show class-dependent prediction biases; ZFET can be affected by chorion permeability, metabolic differences, low solubility, volatility and adsorption; and the monocyte activation tests require product-specific validation because matrix effects can interfere with the measurement (OECD, 2013a, 2013b, 2013c; EURL ECVAM, n.d., TM2002-01–TM2002-05; TM2003-02; TM2003-03; TM2006-01).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2003-02 ICE; TM2003-03 BCOP; TM2006-01 ZFET; TM2002-01 to TM2002-05 MAT variants.</div>
+            </div>
+            <!-- Q7 -->
+            <div class="qa-item">
+              <div class="qa-question">7. What kinds of remaining uncertainty are compatible with regulatory use, and which tend to prevent acceptance?</div>
+              <div class="qa-answer">
+                Uncertainty can be compatible with regulatory use when it is characterised, bounded and managed by applicability restrictions, decision rules, follow-up testing or complementary evidence. BCOP and ICE are examples of accepted methods whose limitations are explicitly incorporated into how results are interpreted. In contrast, uncertainty becomes much more problematic when the evidence package itself does not permit a transparent and reliable assessment, as occurred in SENS-IS peer review. The distinction is therefore between known/manageable uncertainty and uncertainty arising from inadequate evidence quality (OECD, 2013a, 2013b; EURL ECVAM, n.d., TM2003-02; TM2003-03; TM2011-11).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2003-02 ICE; TM2003-03 BCOP; TM2011-11 SENS-IS.</div>
+            </div>
+            <!-- Q8 -->
+            <div class="qa-item">
+              <div class="qa-question">8. Which evidence gaps most often remain after scientific validation?</div>
+              <div class="qa-answer">
+                Residual gaps often concern performance in less-represented chemical classes, product-specific matrices, specific regulatory categories, unusual mechanisms or broader contexts of use beyond the original validation set. The monocyte activation tests demonstrate that generic validation can coexist with a continuing requirement for product-specific suitability. ZFET required continuing attention to paired fish/FET data and case-dependent limitations, while the embryotoxicity methods retained uncertainty for weak or non-embryotoxic chemicals despite reproducible validation studies (EURL ECVAM, n.d., TM2002-01–TM2002-05; TM2006-01; TM1999-01–TM1999-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2002-01 to TM2002-05 MAT variants; TM2006-01 ZFET; TM1999-01 EST; TM1999-02 Micromass; TM1999-03 WEC.</div>
+            </div>
+            <!-- Q9 -->
+            <div class="qa-item">
+              <div class="qa-question">9. How can regulators identify opportunities for conditional or context-specific acceptance rather than requiring full replacement?</div>
+              <div class="qa-answer">
+                A practical approach is to ask which specific regulatory conclusion the NAM can support reliably and under what conditions. Corrositex, BCOP and ICE demonstrate that restricted applicability or sequential testing can enable useful regulatory roles even when a method does not reproduce the full legacy test. The OECD defined approaches for eye damage/irritation make this principle explicit by combining complementary information sources and fixed interpretation procedures (OECD, 2013a, 2013b, 2022; EURL ECVAM, n.d., TM1998-01; TM2003-02; TM2003-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM1998-01 Corrositex; TM2003-02 ICE; TM2003-03 BCOP; OECD TG 467.</div>
+            </div>
+            <!-- Q10 -->
+            <div class="qa-item">
+              <div class="qa-question">10. Which NAMs have progressed successfully through alternative regulatory or standardisation routes, and what can be learned from them?</div>
+              <div class="qa-answer">
+                Several TSAR histories show that a method can progress outside the initially expected EURL ECVAM route. ERα-CALUX was not prioritised for a coordinated EURL ECVAM validation but progressed through external validation and later OECD incorporation. RTgill-W1 stopped in TSAR submission but continued externally and subsequently reached ISO standardisation and OECD TG 249. These cases show that route selection and programme prioritisation should not be equated with scientific merit, and that alternative international routes can sometimes be more appropriate (EURL ECVAM, n.d., TM2009-11; TM2014-01).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-11 ERα-CALUX; TM2014-01 RTgill-W1.</div>
+            </div>
+            <!-- Q11 -->
+            <div class="qa-item">
+              <div class="qa-question">11. Where does the largest delay typically occur between validation, recommendation, guideline development and implementation?</div>
+              <div class="qa-answer">
+                The evidence base does not support identifying one statistically dominant delay stage. It does, however, document substantial late-stage delays and interruptions during international standards development and implementation. Cytosensor's OECD project stopped after validation because the technology was unavailable; HepaRG required additional applicability-expansion work during a prolonged OECD guideline route; and early phototoxicity and replacement trajectories show that scientific acceptance and formal standards adoption can be separated by many years. International standardisation should therefore be treated as its own lifecycle risk (EURL ECVAM, n.d., TM2004-01; TM2009-14; TM1994-01; TM1997-01).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2004-01 Cytosensor; TM2009-14 HepaRG; TM1994-01 3T3 NRU Phototoxicity; TM1997-01 TABST.</div>
+            </div>
+            <!-- Q12 -->
+            <div class="qa-item">
+              <div class="qa-question">12. What characteristics distinguish NAMs that achieve regulatory uptake from those that stop after validation?</div>
+              <div class="qa-answer">
+                Successful regulatory uptake appears to require alignment among scientific reliability, reproducibility, applicability, regulatory relevance, implementability and a viable guidance or standards route. A method may retain limitations and still be accepted if those limitations are characterised and incorporated into the conditions of use. Conversely, scientifically credible methods may stall when practical access, commercial availability, regulatory purpose or standards prioritisation remains unresolved. The decisive issue is therefore not the absence of limitations but whether the remaining uncertainty is compatible with a defined regulatory decision (EURL ECVAM, n.d., TM2003-02; TM2003-03; TM2004-01; TM2009-13; TM2009-14).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2003-02 ICE; TM2003-03 BCOP; TM2004-01 Cytosensor; TM2009-13 CryoHeps; TM2009-14 HepaRG.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Cross-stakeholder Questions -->
+        <div class="qa-category">
+          <button class="qa-category-header" type="button" aria-expanded="false">4. Cross-stakeholder Questions</button>
+          <div class="qa-category-content">
+            <!-- Q1 -->
+            <div class="qa-item">
+              <div class="qa-question">1. Where in the NAM lifecycle do bottlenecks occur most frequently?</div>
+              <div class="qa-answer">
+                A defensible frequency ranking requires a dedicated quantitative event-level analysis and cannot be inferred from lifecycle status alone. Qualitatively, the source records show substantial numbers of submission/readiness events, but important obstacles also occur during validation, peer review, international standardisation and implementation. The core lesson is that bottlenecks are lifecycle-specific and include scientific, documentation, regulatory, organisational and implementation problems (EURL ECVAM, n.d., TSAR method records cited throughout this document).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> Submission examples: TM2009-07, TM2008-06, TM2009-10. Validation examples: TM2009-09, TM2008-09. Late-stage examples: TM2004-01, TM2009-13, TM2009-14.</div>
+            </div>
+            <!-- Q2 -->
+            <div class="qa-item">
+              <div class="qa-question">2. Which bottlenecks are most often successfully resolved?</div>
+              <div class="qa-answer">
+                The source histories repeatedly document successful resolution of protocol optimisation, training, reproducibility, prediction-model refinement, broader testing and dossier maturation. EPISKIN, EpiOcular EIT, epiCS and h-CLAT all progressed after such issues were addressed. By contrast, fundamental mechanistic or endpoint-coverage limitations are more often managed by applicability restrictions or integration than fully eliminated (Fentem et al., 2002; EURL ECVAM, n.d., TM2005-04; TM2008-10; TM2009-09; TM2008-05; TM2010-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2005-04 EPISKIN-RHE; TM2008-10 EpiOcular EIT; TM2009-09 epiCS; TM2008-05 h-CLAT; TM2010-03 KeratinoSens.</div>
+            </div>
+            <!-- Q3 -->
+            <div class="qa-item">
+              <div class="qa-question">3. Which bottlenecks are most strongly associated with discontinued methods?</div>
+              <div class="qa-answer">
+                The discontinued records include multiple distinct causes rather than one failure mechanism: submitter non-response, incomplete evidence delivery, non-prioritisation, material-transfer or IPR problems, insufficient peer-review evidence, commercial unavailability, supersession by a revised method and discontinued standards projects. A 'stopped' status should therefore never be interpreted automatically as scientific invalidity (EURL ECVAM, n.d., TM2008-06; TM2009-07; TM2010-02; TM2011-11; TM2004-01; TM2009-05).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2008-06 CAMVA; TM2009-07 Zebrafish cardiotoxicity; TM2010-02 PALM; TM2011-11 SENS-IS; TM2004-01 Cytosensor; TM2009-05 MUSST.</div>
+            </div>
+            <!-- Q4 -->
+            <div class="qa-item">
+              <div class="qa-question">4. Which factors are most strongly associated with successful regulatory uptake?</div>
+              <div class="qa-answer">
+                The source material supports a recurring combination rather than a single factor: reproducible and transferable performance, a clear protocol, a defined and defensible context of use, explicit applicability boundaries, sufficient decision-relevant evidence and a feasible implementation or standardisation pathway. Successful methods often retain limitations; what distinguishes them is that those limitations are understood and incorporated into the regulatory conditions of use (OECD, 2013a, 2013b, 2018, 2022; EURL ECVAM, n.d., TM2003-02; TM2003-03; TM2010-03).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2003-02 ICE; TM2003-03 BCOP; TM2010-03 KeratinoSens; OECD TG 437, TG 438, TG 442D and TG 467.</div>
+            </div>
+            <!-- Q5 -->
+            <div class="qa-item">
+              <div class="qa-question">5. At which stages would earlier communication between developers, reviewers and regulators have the greatest potential to accelerate progress?</div>
+              <div class="qa-answer">
+                The strongest opportunities are before formal submission, before major validation commitments and before international guideline development. At those points, communication can clarify whether the dossier is sufficiently mature, whether the proposed context of use meets a regulatory need, what evidence is required for review, and whether access or implementation constraints could later prevent uptake. GreenScreen, Ocular Irritection, PALM and Cytosensor illustrate why scientific, regulatory and implementation questions should be surfaced before they become late-stage blockers (EURL ECVAM, n.d., TM2009-08; TM2006-02; TM2010-02; TM2004-01).
+              </div>
+              <div class="qa-evidence"><strong>Evidence examples:</strong> TM2009-08 GreenScreen HC; TM2006-02 Ocular Irritection; TM2010-02 PALM; TM2004-01 Cytosensor.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 5: Overall Stakeholder Message -->
+        <div class="qa-category">
+          <button class="qa-category-header" type="button" aria-expanded="false">5. Overall Stakeholder Message</button>
+          <div class="qa-category-content">
+            <div class="qa-item">
+              <div class="qa-answer">
+                Across the cited TSAR method histories, NAM progression is not a simple linear sequence in which scientific validation automatically leads to regulatory acceptance. Progress depends on alignment among scientific reliability, documentation quality, reproducibility and transferability, applicability, regulatory purpose, implementation feasibility and the selected validation or standardisation route. A limitation is not necessarily a failure: many successful NAMs reached regulatory use by refining protocols, restricting applicability, adding complementary evidence or becoming part of an integrated or defined approach.
+                <br><br>
+                For website implementation, the most transparent format is to retain the concise answer above and display the cited TM IDs as an expandable 'Evidence from TSAR' element. This allows stakeholders to trace each practical lesson back to individual methods and source documents.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- References Section -->
+      <section class="qa-ref-section">
+        <h2>References</h2>
+        <p class="qa-answer">APA-style references below include the primary publications/guidelines used directly in the Q&A and the specific TSAR method records cited as evidence. TSAR method records are listed individually so that each website claim can be traced to a concrete method.</p>
+        <ul class="qa-ref-list">
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM1994-01: The 3T3 neutral red uptake (NRU) phototoxicity assay. Tracking System for Alternative methods towards Regulatory acceptance (TSAR), European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm1994-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM1997-01: Deletion of Target Animal Batch Safety Test. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm1997-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM1998-01: Corrositex® in vitro membrane barrier test method for skin corrosion. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm1998-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM1999-01: Embryonic Stem Cell Test. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm1999-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM1999-02: Micromass Embryotoxicity Assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm1999-02</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM1999-03: Postimplantation Rat Whole-Embryo Culture Assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm1999-03</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2002-01 to TM2002-05: Monocyte activation / in vitro pyrogen test variants. TSAR, European Commission Joint Research Centre.</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2003-01: Neutral red uptake for starting doses for acute oral toxicity. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2003-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2003-02: Isolated Chicken Eye. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2003-02</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2003-03: Bovine corneal opacity and permeability test method. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2003-03</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2004-01: The Cytosensor Microphysiometer Toxicity Test. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2004-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2004-03: Neutral Red Release Assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2004-03</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2004-04: Red Blood Cell haemolysis. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2004-04</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2004-07: In vitro BALB/c 3T3 Cell Transformation Assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2004-07</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2005-04: Reconstructed Human Epidermis Model Test (EPISKIN™). TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2005-04</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2006-01: Zebrafish embryo acute toxicity test for acute fish toxicity testing. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2006-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2006-02: Ocular Irritection. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2006-02</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2007-03: 3T3 Neutral Red Uptake cytotoxicity assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2007-03</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2008-05: Human Cell Line Activation Test (h-CLAT). TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2008-05</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2008-06: Chorioallantoic membrane vascular assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2008-06</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2008-09: Human Reconstructed Corneal Epithelium Eye Irritation Test. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2008-09</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2008-10: EpiOcular™ Human Cell Construct EIT. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2008-10</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2008-13: Skin absorption based on RHE models. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2008-13</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2008-15: Short Time Exposure Test. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2008-15</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2008-17: Stably Transfected Human Estrogen Receptor-α Transactivation Assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2008-17</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-02: MELN transactivation assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-02</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-05: Myeloid U937 Skin Sensitisation Test (MUSST). TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-05</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-07: Automated screening to detect cardiotoxicity in zebrafish. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-07</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-08: GreenScreen HC™ Genotoxicity Assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-08</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-09: epiCS Skin Irritation Test. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-09</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-10: THOR VitroDerm RhE test method for skin irritation testing. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-10</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-11: ERα-CALUX. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-11</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-13: CYP induction in cryopreserved human hepatocytes. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-13</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2009-14: CYP induction using cryopreserved differentiated human HepaRG™ cells. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2009-14</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2010-01: Rat recombinant androgen receptor binding assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2010-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2010-02: PALM cell androgen transactivation assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2010-02</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2010-03: KeratinoSens assay for the testing of skin sensitisers. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2010-03</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2010-07: AR-CALUX. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2010-07</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2011-10: LuSens assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2011-10</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2011-11: SENS-IS. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2011-11</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2013-02: U-SENS™. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2013-02</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2014-01: RTgill-W1 cell line assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2014-01</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2014-02: γH2AX In-Cell Western assay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2014-02</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2014-04: devTOXqP. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2014-04</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2015-03: SkinEthic HCE Eye Irritation Test. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2015-03</li>
+          <li>European Union Reference Laboratory for alternatives to animal testing. (n.d.). TM2026-01: Lung Surfactant Bioassay. TSAR, European Commission Joint Research Centre. https://tsar.jrc.ec.europa.eu/test-method/tm2026-01</li>
+          <li>Fentem, J. H., Briggs, D., Maxwell, G., Heylings, J. R., & Portes, P. (2002). A prevalidation study on the in vitro skin irritation test using EPISKIN. Toxicology in Vitro, 16(5), 531–540.</li>
+          <li>Hoffmann, S., Hoffmann, P., & Luch, A. (2005). International validation of novel pyrogen tests based on human monocytoid cells. Alternatives to Laboratory Animals, 33(2), 153–161.</li>
+          <li>Organisation for Economic Co-operation and Development. (2013a). Test No. 437: Bovine Corneal Opacity and Permeability Test Method for identifying chemicals inducing serious eye damage and chemicals not requiring classification for eye irritation or serious eye damage. OECD Publishing.</li>
+          <li>Organisation for Economic Co-operation and Development. (2013b). Test No. 438: Isolated Chicken Eye Test Method for identifying chemicals inducing serious eye damage and chemicals not requiring classification for eye irritation or serious eye damage. OECD Publishing.</li>
+          <li>Organisation for Economic Co-operation and Development. (2013c). Test No. 236: Fish Embryo Acute Toxicity (FET) Test. OECD Publishing.</li>
+          <li>Organisation for Economic Co-operation and Development. (2018). Test No. 442D: In Vitro Skin Sensitisation: ARE-Nrf2 Luciferase Test Method. OECD Publishing.</li>
+          <li>Organisation for Economic Co-operation and Development. (2022). Test No. 467: Defined Approaches for Serious Eye Damage and Eye Irritation. OECD Publishing.</li>
+          <li>Schindler, S., Spreitzer, I., Loschner, B., Hildebrandt, G., Uhl, A., Henneke, P., & others. (2006). Cryopreserved human whole blood for pyrogen testing: Validation of a monocyte activation test. Alternatives to Laboratory Animals, 34(1), 79–94.</li>
+        </ul>
+      </section>
+
+    </div>
+  </section>
+</main>
+<!-- TemplateEndEditable -->
+<script src="../js/base.js"></script>
+<script>
+  // Simple script to handle accordion toggling for Q&A categories
+  document.addEventListener('DOMContentLoaded', function() {
+    const headers = document.querySelectorAll('.qa-category-header');
+    
+    headers.forEach(header => {
+      header.addEventListener('click', function() {
+        const category = this.parentElement;
+        category.classList.toggle('active');
+        this.setAttribute('aria-expanded', category.classList.contains('active').toString());
+        
+        // Optional: Close other categories when one is opened
+        // headers.forEach(otherHeader => {
+        //   if (otherHeader !== this) {
+        //     otherHeader.parentElement.classList.remove('active');
+        //   }
+        // });
+      });
+    });
+  });
+</script>
+</body>
+</html>

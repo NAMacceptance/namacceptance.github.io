@@ -1,0 +1,2 @@
+/* Bootstrap Studio bridge: HTML uses Bootstrap 5 component classes while site.css preserves the original visual design. */
+.container-fluid{width:100%;margin-right:auto;margin-left:auto}.card{background:#fff}.btn{cursor:pointer}.form-control,.form-select{display:block;width:100%;box-sizing:border-box}.table{width:100%;border-collapse:collapse}.table-hover tbody tr:hover{background:#f3f7fa}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}

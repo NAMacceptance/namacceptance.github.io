@@ -1,0 +1,2 @@
+/* Tabs enhance the three HTML panels; their content remains editable in Bootstrap Studio. */
+document.addEventListener("DOMContentLoaded", () => { const tabs = [...document.querySelectorAll("[data-findings-tabs] button")]; const panels = [...document.querySelectorAll("[data-findings-panel]")]; tabs.forEach((tab, i) => tab.addEventListener("click", () => { panels.forEach((panel, j) => panel.hidden = i !== j); tabs.forEach((item, j) => item.setAttribute("aria-selected", String(i === j))); })); });
