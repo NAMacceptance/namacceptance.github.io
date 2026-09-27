@@ -5,14 +5,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home | Regulatory Acceptance of NAMs</title>
   <meta name="description" content="A transparent, quality-controlled TSAR snapshot for research on the regulatory acceptance of New Approach Methodologies.">
-  <link rel="icon" type="image/png" href="./images/favicon.png">
-  <link rel="stylesheet" href="./css/site.css?v=20260828">
+  <link rel="icon" type="image/png" href="./images/favicon.png?v=20260926b">
+  <link rel="stylesheet" href="./css/site.css?v=20260927-analysis-filters-upgraded">
   <link rel="stylesheet" href="./css/bootstrap-studio.css">
+<style>/* Embedded Pathway Fallback Styles */
+
+/* Conceptual Regulatory Pathway Explainer Component */
+.pathway-flow-container {
+  padding: 22px 20px 20px !important;
+  margin-top: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #d8e2eb !important;
+  border-radius: 10px !important;
+  box-shadow: 0 3px 10px rgba(9,43,81,0.045) !important;
+}
+
+.pathway-flow {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr) !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  position: relative !important;
+}
+
+.pathway-node {
+  background: #f8fafc !important;
+  border: 1px solid #d9e3ed !important;
+  border-radius: 8px !important;
+  padding: 14px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease !important;
+}
+
+.pathway-node:hover {
+  border-color: #1a5ea8 !important;
+  box-shadow: 0 4px 12px rgba(26,94,168,0.09) !important;
+  transform: translateY(-2px) !important;
+}
+
+.pathway-node .node-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 2px !important;
+}
+
+.pathway-node .node-num {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background: #e8f0fb !important;
+  color: #154c92 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+}
+
+.pathway-node .node-step-tag {
+  font-size: 9.5px !important;
+  text-transform: uppercase !important;
+  letter-spacing: .06em !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+}
+
+.pathway-node .node-content h4 {
+  margin: 0 0 6px 0 !important;
+  color: #123968 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+}
+
+.pathway-node .node-content p {
+  margin: 0 !important;
+  color: #556980 !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+
+.pathway-caveat-note {
+  margin: 18px 0 0 !important;
+  padding: 11px 16px !important;
+  background: #f0f7fd !important;
+  border-left: 3px solid #1a5ea8 !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  color: #1e3a5f !important;
+  line-height: 1.45 !important;
+}
+
+.pathway-caveat-note strong {
+  color: #123968 !important;
+}
+
+@media (max-width: 1100px) {
+  .pathway-flow {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .pathway-flow {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+</style>
 </head>
 <body>
 <main class="app-shell container-fluid">
   <aside class="sidebar">
-    <a class="brand" href="./" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home"><img class="brand-logo" src="./images/nam-dashboard-logo-compact.png" alt="Dashboard for Regulatory Acceptance of NAMs"></a>
+    <a class="brand" href="./" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home"><img class="brand-logo" src="./images/nam-dashboard-logo-compact.png?v=20260926c" alt="Dashboard for Regulatory Acceptance of NAMs"></a>
     <nav aria-label="Primary navigation">
       <a class="nav-item active" href="./"><span aria-hidden="true">⌂</span>Home</a>
       <a class="nav-item" href="./project-overview/"><span aria-hidden="true">◇</span>Project Overview</a>
@@ -30,7 +143,7 @@
       <a class="nav-item" href="./findings/"><span aria-hidden="true">◎</span>Findings</a>
       <a class="nav-item" href="./downloads/"><span aria-hidden="true">⇩</span>Downloads</a>
     </nav>
-    <div class="sidebar-note"><span>Research release · 25 September 2026</span><strong>147 TSAR records</strong><small>147 expert-reviewed</small></div>
+    <div class="sidebar-note"><span>Research release · 25 September 2026</span><strong>147 TSAR records</strong><small>147 researcher verified</small></div>
     <div class="sidebar-footer">
       <div class="sidebar-logos" aria-label="Institutional affiliations"><a href="https://www.uu.nl/en" target="_blank" rel="noreferrer" aria-label="Utrecht University"><img class="logo-uu" src="./images/utrecht-university.png" alt="Utrecht University"></a></div>
       <p>Research Project</p><small>MSc Health &amp; Environment<br>Utrecht University</small>
@@ -48,7 +161,7 @@
       <aside class="development-notice" role="alert" aria-labelledby="development-notice-title"><span aria-hidden="true">!</span><div><strong id="development-notice-title">Website under development</strong><p>This website is a work in progress. Its content, classifications, analyses and visualizations may be incomplete, provisional or contain errors. Please do not rely on this website as regulatory or scientific guidance.</p></div></aside>
 
       <section class="home-hero panel card">
-        <div><span class="eyebrow">Research release · 25 September 2026</span><h2>From TSAR records to a research-ready regulatory landscape</h2><p>This Research Project turns a dated snapshot of 147 TSAR records into a transparent, quality-controlled dataset. It examines which New Approach Methodologies progress, where pathways slow or stop, and how endpoints and methods differ across regulatory outcomes.</p><small>Descriptive research dataset · Regulatory status is not a measure of scientific quality</small></div>
+        <div><span class="eyebrow">Research release · 25 September 2026</span><h2>From TSAR records to a research-ready regulatory landscape</h2><p>This research project turns a snapshot of 147 test-method records from the European Commission Joint Research Centre’s Tracking System for Alternative Methods towards Regulatory Acceptance (TSAR) into a transparent, quality-controlled dataset. It examines which New Approach Methodologies (NAMs) progress, where pathways slow or stop, and how endpoints and methods differ across regulatory outcomes.</p><small>Descriptive research dataset · Regulatory status is a derived research status and not a measure of scientific quality</small></div>
         <div class="hero-stat"><strong>147</strong><span>methods traced across the regulatory pathway</span></div>
       </section>
 
@@ -56,17 +169,77 @@
 
       <section class="metrics" aria-label="Dataset summary">
         <article class="metric-card"><div class="metric-icon blue">⚗</div><div class="metric-copy"><span>TSAR-listed methods</span><strong>147</strong><small>Current research snapshot</small><div class="metric-inline"><i class="metric-progress" style="--progress:100%"></i><b>100% (n=147)</b></div></div></article>
-        <article class="metric-card"><div class="metric-icon teal">✓</div><div class="metric-copy"><span>Expert-reviewed records</span><strong>147</strong><small>Current release status</small><div class="metric-inline"><i class="metric-progress teal" style="--progress:100%"></i><b>100% (n=147)</b></div></div></article>
-        <article class="metric-card"><div class="metric-icon blue">◎</div><div class="metric-copy"><span>Adopted methods</span><strong>51</strong><small>Regulatory status</small><div class="metric-inline"><i class="metric-progress" style="--progress:34.7%"></i><b>34.7% (n=51)</b></div></div></article>
-        <article class="metric-card"><div class="metric-icon blue">▦</div><div class="metric-copy"><span>Reduction contribution</span><strong>87</strong><small>3R category</small><div class="metric-inline"><i class="metric-progress teal" style="--progress:59.2%"></i><b>59.2% (n=87)</b></div></div></article>
+        <article class="metric-card"><div class="metric-icon teal">✓</div><div class="metric-copy"><span>Researcher verified records</span><strong>147</strong><small>Current release status</small><div class="metric-inline"><i class="metric-progress teal" style="--progress:100%"></i><b>100% (n=147)</b></div></div></article>
+        <article class="metric-card"><div class="metric-icon blue">◎</div><div class="metric-copy"><span>Adopted methods</span><strong>51</strong><small>Derived regulatory status</small><div class="metric-inline"><i class="metric-progress" style="--progress:34.7%"></i><b>34.7% (n=51)</b></div></div></article>
+        <article class="metric-card"><div class="metric-icon blue">▦</div><div class="metric-copy"><span>Reduction contribution</span><strong>87</strong> <small>3R category</small><div class="metric-inline"><i class="metric-progress teal" style="--progress:59.2%"></i><b>59.2% (n=87)</b></div></div></article>
       </section>
 
       <section class="section-block">
         <div class="block-header"><div><span class="eyebrow">Descriptive patterns</span><h2>A structured view of the landscape</h2></div><p>Bars show the share of all 147 records. These three fields use one value per record, so each column totals 100%.</p></div>
         <div class="summary-columns">
-          <article class="panel card mini-ranking insight-ranking"><h3>Regulatory stage</h3><p class="ranking-note">Broad location in the TSAR pathway.</p><div><span>Regulatory assessment</span><strong>46.3% (n=68)</strong><i style="--progress:46.3%"></i></div><div><span>Test Submission</span><strong>33.3% (n=49)</strong><i style="--progress:33.3%"></i></div><div><span>Validation</span><strong>20.4% (n=30)</strong><i style="--progress:20.4%"></i></div></article>
-          <article class="panel card mini-ranking insight-ranking"><h3>Regulatory status</h3><p class="ranking-note">Latest derived status; not a scientific-quality score.</p><div><span>Discontinued</span><strong>36.1% (n=53)</strong><i style="--progress:36.1%"></i></div><div><span>Adopted</span><strong>34.7% (n=51)</strong><i style="--progress:34.7%"></i></div><div><span>Finalised</span><strong>12.9% (n=19)</strong><i style="--progress:12.9%"></i></div><div><span>Acceptance pending</span><strong>7.5% (n=11)</strong><i style="--progress:7.5%"></i></div><div><span>Ongoing</span><strong>4.8% (n=7)</strong><i style="--progress:4.8%"></i></div><div><span>Other statuses</span><strong>4.1% (n=6)</strong><i style="--progress:4.1%"></i></div></article>
-          <article class="panel card mini-ranking insight-ranking"><h3>3R contribution</h3><p class="ranking-note">The primary 3R category recorded for each method.</p><div><span>Reduction</span><strong>59.2% (n=87)</strong><i style="--progress:59.2%"></i></div><div><span>Replacement</span><strong>35.4% (n=52)</strong><i style="--progress:35.4%"></i></div><div><span>Unknown</span><strong>3.4% (n=5)</strong><i style="--progress:3.4%"></i></div><div><span>Refinement</span><strong>2.0% (n=3)</strong><i style="--progress:2.0%"></i></div></article>
+          <article class="panel card mini-ranking insight-ranking"><h3>Regulatory stage</h3><p class="ranking-note">Broad location in the TSAR pathway.</p><div><span>Regulatory assessment</span><strong>46.3% <small class="analysis-count">(n=68)</small></strong><i style="--progress:46.3%"></i></div><div><span>Test Submission</span><strong>33.3% <small class="analysis-count">(n=49)</small></strong><i style="--progress:33.3%"></i></div><div><span>Validation</span><strong>20.4% <small class="analysis-count">(n=30)</small></strong><i style="--progress:20.4%"></i></div></article>
+          <article class="panel card mini-ranking insight-ranking"><h3>Derived regulatory status</h3><p class="ranking-note">Latest derived status in this research dataset; not a scientific-quality score.</p><div><span>Discontinued</span><strong>36.1% <small class="analysis-count">(n=53)</small></strong><i style="--progress:36.1%"></i></div><div><span>Adopted</span><strong>34.7% <small class="analysis-count">(n=51)</small></strong><i style="--progress:34.7%"></i></div><div><span>Finalised</span><strong>12.9% <small class="analysis-count">(n=19)</small></strong><i style="--progress:12.9%"></i></div><div><span>Acceptance pending</span><strong>7.5% <small class="analysis-count">(n=11)</small></strong><i style="--progress:7.5%"></i></div><div><span>Ongoing</span><strong>4.8% <small class="analysis-count">(n=7)</small></strong><i style="--progress:4.8%"></i></div><div><span>Other statuses</span><strong>4.1% <small class="analysis-count">(n=6)</small></strong><i style="--progress:4.1%"></i></div></article>
+          <article class="panel card mini-ranking insight-ranking"><h3>3R contribution</h3><p class="ranking-note">The primary 3R category recorded for each method.</p><div><span>Reduction</span><strong>59.2% <small class="analysis-count">(n=87)</small></strong><i style="--progress:59.2%"></i></div><div><span>Replacement</span><strong>35.4% <small class="analysis-count">(n=52)</small></strong><i style="--progress:35.4%"></i></div><div><span>Unknown</span><strong>3.4% <small class="analysis-count">(n=5)</small></strong><i style="--progress:3.4%"></i></div><div><span>Refinement</span><strong>2.0% <small class="analysis-count">(n=3)</small></strong><i style="--progress:2.0%"></i></div></article>
+        </div>
+      </section>
+
+
+      <section class="section-block conceptual-pathway-section" aria-labelledby="pathway-sequence-title">
+        <div class="block-header">
+          <div>
+            <span class="eyebrow">Conceptual framework</span>
+            <h2 id="pathway-sequence-title">The pathway towards regulatory acceptance</h2>
+          </div>
+          <p>A conceptual progression from initial scientific innovation to formal regulatory uptake.</p>
+        </div>
+        <div class="panel card pathway-flow-container">
+          <div class="pathway-flow">
+            <div class="pathway-node">
+              <div class="node-header"><span class="node-num">1</span><span class="node-step-tag">Step 1</span></div>
+              <div class="node-content">
+                <h4>Method development</h4>
+                <p>Scientific design, protocol optimisation and applicability domain definition.</p>
+              </div>
+            </div>
+            <div class="pathway-node">
+              <div class="node-header"><span class="node-num">2</span><span class="node-step-tag">Step 2</span></div>
+              <div class="node-content">
+                <h4>Validation</h4>
+                <p>Formal assessment of reliability, reproducibility and toxicological relevance.</p>
+              </div>
+            </div>
+            <div class="pathway-node">
+              <div class="node-header"><span class="node-num">3</span><span class="node-step-tag">Step 3</span></div>
+              <div class="node-content">
+                <h4>Peer review</h4>
+                <p>Independent scientific scrutiny and validation body review opinions.</p>
+              </div>
+            </div>
+            <div class="pathway-node">
+              <div class="node-header"><span class="node-num">4</span><span class="node-step-tag">Step 4</span></div>
+              <div class="node-content">
+                <h4>Regulatory evaluation</h4>
+                <p>Appraisal by regulatory authorities for specific decision-making contexts.</p>
+              </div>
+            </div>
+            <div class="pathway-node">
+              <div class="node-header"><span class="node-num">5</span><span class="node-step-tag">Step 5</span></div>
+              <div class="node-content">
+                <h4>Guideline / regulatory acceptance</h4>
+                <p>Formal inclusion in OECD Test Guidelines or jurisdictional regulatory standards.</p>
+              </div>
+            </div>
+            <div class="pathway-node">
+              <div class="node-header"><span class="node-num">6</span><span class="node-step-tag">Step 6</span></div>
+              <div class="node-content">
+                <h4>Regulatory use</h4>
+                <p>Routine deployment in risk assessments, classification and dossier filings.</p>
+              </div>
+            </div>
+          </div>
+          <div class="pathway-caveat-note">
+            <strong>Important caveat:</strong> Not every method follows every step, and regulatory pathways may differ between methods and jurisdictions.
+          </div>
         </div>
       </section>
 
@@ -83,7 +256,7 @@
         </div>
       </section>
     </div>
-    <footer class="site-footer"><div><strong>Dashboard for Regulatory Acceptance of NAMs</strong><span>New Approach Methods in Toxicology</span></div><p>Research Project · MSc Health &amp; Environment, Utrecht University</p><small>Source context: European Commission JRC TSAR</small></footer>
+    <footer class="site-footer"><div><strong>Dashboard for Regulatory Acceptance of NAMs</strong><span>New Approach Methods in Toxicology</span></div><p>Research Project · MSc Health &amp; Environment, Utrecht University</p><small>Source context: European Commission JRC TSAR<br><span class="footer-last-update">Last update: 26 September 2026</span></small></footer>
   </section>
 </main>
 <script src="./js/base.js"></script>

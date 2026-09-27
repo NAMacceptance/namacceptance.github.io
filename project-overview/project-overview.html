@@ -9,16 +9,129 @@
   <!-- TemplateBeginEditable name="page-description" -->
   <meta name="description" content="Project aims, research questions and the pathway from NAM development to regulatory acceptance.">
   <!-- TemplateEndEditable -->
-  <link rel="icon" type="image/png" href="../images/favicon.png">
-  <link rel="stylesheet" href="../css/site.css">
+  <link rel="icon" type="image/png" href="../images/favicon.png?v=20260926b">
+  <link rel="stylesheet" href="../css/site.css?v=20260927-analysis-filters-upgraded">
   <link rel="stylesheet" href="../css/bootstrap-studio.css">
+<style>/* Embedded Pathway Fallback Styles */
+
+/* Conceptual Regulatory Pathway Explainer Component */
+.pathway-flow-container {
+  padding: 22px 20px 20px !important;
+  margin-top: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #d8e2eb !important;
+  border-radius: 10px !important;
+  box-shadow: 0 3px 10px rgba(9,43,81,0.045) !important;
+}
+
+.pathway-flow {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr) !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  position: relative !important;
+}
+
+.pathway-node {
+  background: #f8fafc !important;
+  border: 1px solid #d9e3ed !important;
+  border-radius: 8px !important;
+  padding: 14px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease !important;
+}
+
+.pathway-node:hover {
+  border-color: #1a5ea8 !important;
+  box-shadow: 0 4px 12px rgba(26,94,168,0.09) !important;
+  transform: translateY(-2px) !important;
+}
+
+.pathway-node .node-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 2px !important;
+}
+
+.pathway-node .node-num {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background: #e8f0fb !important;
+  color: #154c92 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+}
+
+.pathway-node .node-step-tag {
+  font-size: 9.5px !important;
+  text-transform: uppercase !important;
+  letter-spacing: .06em !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+}
+
+.pathway-node .node-content h4 {
+  margin: 0 0 6px 0 !important;
+  color: #123968 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+}
+
+.pathway-node .node-content p {
+  margin: 0 !important;
+  color: #556980 !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+
+.pathway-caveat-note {
+  margin: 18px 0 0 !important;
+  padding: 11px 16px !important;
+  background: #f0f7fd !important;
+  border-left: 3px solid #1a5ea8 !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  color: #1e3a5f !important;
+  line-height: 1.45 !important;
+}
+
+.pathway-caveat-note strong {
+  color: #123968 !important;
+}
+
+@media (max-width: 1100px) {
+  .pathway-flow {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .pathway-flow {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+</style>
 </head>
 <body>
 <!-- TemplateBeginEditable name="page-content" -->
 <main class="app-shell container-fluid">
-<aside class="sidebar "><a class="brand" href="../" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home"><img class="brand-logo" src="../images/nam-dashboard-logo-compact.png" alt="Dashboard for Regulatory Acceptance of NAMs"/></a>
+<aside class="sidebar "><a class="brand" href="../" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home"><img class="brand-logo" src="../images/nam-dashboard-logo-compact.png?v=20260926c" alt="Dashboard for Regulatory Acceptance of NAMs"/></a>
 <nav aria-label="Primary navigation"><a class="nav-item" href="../"><span aria-hidden="true">⌂</span>Home</a><a class="nav-item active" href="../project-overview/"><span aria-hidden="true">◇</span>Project Overview</a><a class="nav-item" href="../methodology/"><span aria-hidden="true">⌁</span>Methodology</a><div class="nav-group"><button class="nav-item nav-group-toggle" type="button" aria-expanded="false" aria-controls="explore-submenu"><span aria-hidden="true">⌕</span><span class="nav-group-label">Explore the data</span><span class="nav-chevron" aria-hidden="true">›</span></button><div class="nav-submenu" id="explore-submenu"><a class="nav-subitem" href="../dictionary/">Data Guide</a><a class="nav-subitem" href="../explore/">Explore Data</a><a class="nav-subitem" href="../analysis/">Analysis Explorer</a><a class="nav-subitem" href="../visualizations/">Visualizations</a></div></div><a class="nav-item" href="../Q&A/"><span class="qa-nav-icon" aria-hidden="true">?</span>Q&amp;A</a><a class="nav-item" href="../findings/"><span aria-hidden="true">◎</span>Findings</a><a class="nav-item" href="../downloads/"><span aria-hidden="true">⇩</span>Downloads</a></nav>
-<div class="sidebar-note"><span>Research release · 25 September 2026</span><strong>147 TSAR records</strong><small>147 expert-reviewed</small></div>
+<div class="sidebar-note"><span>Research release · 25 September 2026</span><strong>147 TSAR records</strong><small>147 researcher verified</small></div>
 <div class="sidebar-footer">
 <div class="sidebar-logos" aria-label="Institutional affiliations"><a href="https://www.uu.nl/en" target="_blank" rel="noreferrer" aria-label="Utrecht University"><img class="logo-uu" src="../images/utrecht-university.png" alt="Utrecht University"/></a></div>
 <p>Research Project</p><small>MSc Health &amp; Environment<br/>Utrecht University</small></div>
@@ -49,18 +162,69 @@
 <li>standardisation and international harmonisation</li>
 <li>regulatory requirements and acceptance processes</li>
 </ul>
-<p>The project therefore distinguishes between <strong>method development, validation, regulatory acceptance and implementation</strong> rather than treating them as a single process.</p></section>
+<p>The project therefore distinguishes between <strong>method development, validation, regulatory acceptance and implementation</strong> rather than treating them as a single process.</p>
+
+<div class="pathway-flow-container">
+  <div class="pathway-flow">
+    <div class="pathway-node">
+      <div class="node-header"><span class="node-num">1</span><span class="node-step-tag">Step 1</span></div>
+      <div class="node-content">
+        <h4>Method development</h4>
+        <p>Scientific design, protocol optimisation and applicability domain definition.</p>
+      </div>
+    </div>
+    <div class="pathway-node">
+      <div class="node-header"><span class="node-num">2</span><span class="node-step-tag">Step 2</span></div>
+      <div class="node-content">
+        <h4>Validation</h4>
+        <p>Formal assessment of reliability, reproducibility and toxicological relevance.</p>
+      </div>
+    </div>
+    <div class="pathway-node">
+      <div class="node-header"><span class="node-num">3</span><span class="node-step-tag">Step 3</span></div>
+      <div class="node-content">
+        <h4>Peer review</h4>
+        <p>Independent scientific scrutiny and validation body review opinions.</p>
+      </div>
+    </div>
+    <div class="pathway-node">
+      <div class="node-header"><span class="node-num">4</span><span class="node-step-tag">Step 4</span></div>
+      <div class="node-content">
+        <h4>Regulatory evaluation</h4>
+        <p>Appraisal by regulatory authorities for specific decision-making contexts.</p>
+      </div>
+    </div>
+    <div class="pathway-node">
+      <div class="node-header"><span class="node-num">5</span><span class="node-step-tag">Step 5</span></div>
+      <div class="node-content">
+        <h4>Guideline / regulatory acceptance</h4>
+        <p>Formal inclusion in OECD Test Guidelines or jurisdictional regulatory standards.</p>
+      </div>
+    </div>
+    <div class="pathway-node">
+      <div class="node-header"><span class="node-num">6</span><span class="node-step-tag">Step 6</span></div>
+      <div class="node-content">
+        <h4>Regulatory use</h4>
+        <p>Routine deployment in risk assessments, classification and dossier filings.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pathway-caveat-note">
+    <strong>Important caveat:</strong> Not every method follows every step, and regulatory pathways may differ between methods and jurisdictions.
+  </div>
+</div>
+</section>
 <section class="section-block panel overview-question"><span class="eyebrow">Central research question</span><h2>What does this project investigate?</h2><p><strong>How do TSAR-listed NAMs and related alternative test methods differ in their validation characteristics and regulatory outcomes across method types and toxicological endpoints?</strong></p></section>
 <section class="section-block" aria-labelledby="subquestions-title">
 <div class="block-header">
 <div><span class="eyebrow">Subquestions</span><h2 id="subquestions-title">Five areas of inquiry</h2></div>
-<p>These questions guide the descriptive analyses, comparison of method categories and the selected endpoint case study.</p></div>
+<p>These questions guide the descriptive analyses, comparison of method categories and the Eye irritation / serious eye damage case study.</p></div>
 <div class="research-grid">
 <article class="panel card card"><span>SQ1</span><h3>Distribution of methods</h3><p>How are TSAR-listed NAMs and related alternative test methods distributed across methodological domains, toxicological endpoints, validation stages and regulatory statuses?</p></article>
 <article class="panel card card"><span>SQ2</span><h3>Evidence and progression</h3><p>What types of scientific and regulatory evidence are associated with methods that have progressed towards regulatory acceptance?</p></article>
 <article class="panel card card"><span>SQ3</span><h3>Barriers to acceptance</h3><p>Which scientific, technical and regulatory barriers are reported for methods that have not achieved regulatory acceptance or remain under validation or review?</p></article>
 <article class="panel card card"><span>SQ4</span><h3>Differences by method category</h3><p>How do validation pathways and regulatory outcomes differ between in vitro, in silico, in chemico, ex vivo and integrated approaches?</p></article>
-<article class="panel card card"><span>SQ5</span><h3>Selected endpoint case study</h3><p>What does the selected case-study endpoint reveal about stakeholder involvement, evidence requirements and bottlenecks from validation to regulatory acceptance?</p></article>
+<article class="panel card card"><span>SQ5</span><h3>Eye irritation / serious eye damage case study</h3><p>What does the case study of Eye irritation / serious eye damage reveal about stakeholder involvement, evidence requirements and barriers from validation to regulatory acceptance?</p></article>
 </div>
 </section>
 <section class="section-block">
@@ -71,7 +235,7 @@
 <article class="panel card card"><h3>Method type</h3><p>Explore in vitro, in silico, in chemico, ex vivo and integrated approaches.</p></article>
 <article class="panel card card"><h3>Toxicological endpoint</h3><p>Compare areas such as eye irritation, skin irritation, sensitisation and more complex systemic toxicity endpoints.</p></article>
 <article class="panel card card"><h3>Validation pathway</h3><p>See where methods are positioned within the validation and assessment process.</p></article>
-<article class="panel card card"><h3>Regulatory status</h3><p>Explore differences in regulatory progression and outcomes between methods.</p></article>
+<article class="panel card card"><h3>Derived regulatory status</h3><p>Explore differences in derived regulatory progression and outcomes between methods in this research dataset.</p></article>
 <article class="panel card card"><h3>Workflow stage</h3><p>Follow methods across the different stages recorded within TSAR.</p></article>
 <article class="panel card card"><h3>Stakeholders and organisations</h3><p>Explore the organisations and actors involved in method submission, validation, review and regulatory consideration.</p></article>
 </div>
@@ -84,7 +248,7 @@
 </div>
 <footer class="site-footer">
 <div><strong>Dashboard for Regulatory Acceptance of NAMs</strong><span>New Approach Methods in Toxicology</span></div>
-<p>Research Project</p><small>Source context: European Commission JRC TSAR</small></footer>
+<p>Research Project</p><small>Source context: European Commission JRC TSAR<br><span class="footer-last-update">Last update: 26 September 2026</span></small></footer>
 </section>
 </main>
 <!-- TemplateEndEditable -->
