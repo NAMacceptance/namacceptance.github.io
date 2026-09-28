@@ -10,7 +10,7 @@
   <meta name="description" content="Explore descriptive analyses of the TSAR research snapshot.">
   <!-- TemplateEndEditable -->
   <link rel="icon" type="image/png" href="../images/favicon.png?v=20260926b">
-  <link rel="stylesheet" href="../css/site.css?v=20260927-analysis-filters-upgraded">
+  <link rel="stylesheet" href="../css/site.css?v=20260928-sidebar-card-v2">
   <link rel="stylesheet" href="../css/bootstrap-studio.css">
 <style>
 /* Analysis Explorer page styles (page-specific, 27 September 2026 usability update) */
@@ -73,7 +73,7 @@
 .analysis-chart button.analysis-row:hover,.analysis-chart button.analysis-row:focus-visible{border-color:#cddbe7;background:#f5f9fc}
 .analysis-chart button.analysis-row.is-focused{border-color:#1a5ea8;background:#eef5fd}
 .analysis-chart .stack-track{display:flex}
-.analysis-chart .chart-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;padding-top:12px;border-top:1px solid #e3edf5;font-size:11px;color:#4f6880}
+.analysis-chart .chart-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:14px 0 0;padding-top:12px;border-top:1px solid #e3edf5;font-size:11px;color:#4f6880}
 .analysis-chart .chart-legend span{display:inline-flex;align-items:center;gap:6px}
 .analysis-chart .chart-legend i{display:inline-block;width:12px;height:12px;border-radius:3px}
 .analysis-table th[scope=row]{font-weight:600}
@@ -107,14 +107,14 @@
 .vchart-yaxis{position:relative;height:var(--plot-h);border-right:1px solid #c9d6e2}
 .vchart-yaxis em{right:6px;transform:translateY(50%)}
 .vchart-scroll{overflow-x:auto;padding-bottom:4px}
-.vchart-plot{position:relative;display:flex;align-items:flex-end;gap:6px;height:var(--plot-h);margin-bottom:74px;border-bottom:1px solid #c9d6e2}
+.vchart-plot{position:relative;display:flex;align-items:flex-end;gap:6px;height:var(--plot-h);margin-bottom:86px;border-bottom:1px solid #c9d6e2}
 .vchart-plot .hgrid{position:absolute;left:0;right:0;height:1px;background:#e1e8f0}
-.vcol{position:relative;flex:1 0 52px;height:100%;margin:0;padding:0;border:0;border-radius:6px 6px 0 0;background:none;font:inherit;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.vcol{position:relative;flex:1 0 76px;height:100%;margin:0;padding:0;border:0;border-radius:6px 6px 0 0;background:none;font:inherit;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
 .vcol:hover,.vcol:focus-visible{background:rgba(26,94,168,.06)}
 .vcol.is-focused{background:rgba(26,94,168,.12);outline:2px solid #1a5ea8;outline-offset:-2px}
 .vcol-bar{position:relative;z-index:1;display:flex;flex-direction:column-reverse;width:min(70%,56px);min-height:2px;border-radius:3px 3px 0 0;overflow:hidden;background:#dbe5ef}
 .vcol-value{position:absolute;z-index:2;left:0;right:0;color:#1d507b;font-size:10.5px;text-align:center;white-space:nowrap}
-.vcol-label{position:absolute;top:calc(100% + 6px);left:0;right:0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;color:#52677c;font-size:10px;font-style:normal;line-height:1.25;text-align:center}
+.vcol-label{position:absolute;top:calc(100% + 6px);left:0;right:0;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;color:#52677c;font-size:10px;padding:0 3px;font-style:normal;line-height:1.25;text-align:center}
 .chart-legend .legend-item{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border:1px solid transparent;border-radius:999px;background:none;color:#4f6880;font:inherit;font-size:11px;cursor:pointer}
 .chart-legend .legend-item:hover,.chart-legend .legend-item:focus-visible{border-color:#cddbe7;background:#fff}
 .chart-legend .legend-item.is-off{opacity:.45;text-decoration:line-through}
@@ -151,7 +151,9 @@
 <optgroup label="Derived research classifications">
   <option value="status" selected="">Regulatory status</option>
   <option value="stage">Regulatory stage</option>
-  <option value="evidenceUpdatedStage">Evidence-updated stage</option>
+  <option value="evidenceUpdatedStage">External step/stage (evidence-updated)</option>
+  <option value="progressionBeyondTsar">Progression beyond TSAR</option>
+  <option value="caseStudy">Case-study sample</option>
   <option value="bottlenecks">Bottleneck profile</option>
   <option value="bottleneckCount">Number of bottleneck signals</option>
   <option value="threeR">3R category</option>
@@ -159,7 +161,7 @@
   <option value="endpoint">Endpoint category</option>
   <option value="methodology">Core methodology</option>
   <option value="applicationDomain">Application domain</option>
-  <option value="applicationDomainExpert">Expert application domain</option>
+  <option value="applicationDomainExpert">Researcher application domain</option>
 </optgroup>
 </select></label>
 <button type="button" class="swap-button" data-action="swap" aria-label="Swap grouping and comparison"><span aria-hidden="true">⇄</span></button>
@@ -174,7 +176,9 @@
 <optgroup label="Derived research classifications">
   <option value="status">Regulatory status</option>
   <option value="stage">Regulatory stage</option>
-  <option value="evidenceUpdatedStage">Evidence-updated stage</option>
+  <option value="evidenceUpdatedStage">External step/stage (evidence-updated)</option>
+  <option value="progressionBeyondTsar">Progression beyond TSAR</option>
+  <option value="caseStudy">Case-study sample</option>
   <option value="bottlenecks">Bottleneck profile</option>
   <option value="bottleneckCount">Number of bottleneck signals</option>
   <option value="threeR">3R category</option>
@@ -182,7 +186,7 @@
   <option value="endpoint">Endpoint category</option>
   <option value="methodology">Core methodology</option>
   <option value="applicationDomain">Application domain</option>
-  <option value="applicationDomainExpert">Expert application domain</option>
+  <option value="applicationDomainExpert">Researcher application domain</option>
 </optgroup>
 </select></label>
 <label class="tb-field tb-narrow"><span>Order</span><select class="form-select" data-analysis-sort>
@@ -207,6 +211,9 @@
 <label class="tb-filter"><span>Domain</span><select class="form-select" data-analysis-filter="applicationDomainExpert"><option value="">All</option></select></label>
 <label class="tb-filter"><span>Bottleneck</span><select class="form-select" data-analysis-filter="bottlenecks"><option value="">All</option></select></label>
 <label class="tb-filter"><span>3R</span><select class="form-select" data-analysis-filter="threeR"><option value="">All</option></select></label>
+<label class="tb-filter"><span>External stage</span><select class="form-select" data-analysis-filter="evidenceUpdatedStage"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Progression</span><select class="form-select" data-analysis-filter="progressionBeyondTsar"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Case study</span><select class="form-select" data-analysis-filter="caseStudy"><option value="">All</option></select></label>
 <label class="tb-filter"><span>Animal use</span><select class="form-select" data-analysis-filter="animalUseImpact"><option value="">All</option></select></label>
 </div>
 <div class="more-group"><span class="source-chip">TSAR source</span>
@@ -267,7 +274,8 @@
 </main>
 <!-- TemplateEndEditable -->
 <script src="../js/base.js"></script>
-<script src="../js/data.js?v=20260926-standalone-v5"></script>
-<script src="../js/analysis.js?v=20260927-usability-v3"></script>
+<script src="../js/data.js?v=20260928-researcher"></script>
+<script src="../js/extra-variables.js?v=20260928"></script>
+<script src="../js/analysis.js?v=20260928-researcher"></script>
 </body>
 </html>

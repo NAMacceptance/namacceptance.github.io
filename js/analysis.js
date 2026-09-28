@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
     code: { label: "TSAR snapshot stage", codes: true, order: Object.keys(stageCodeLabels) },
     status: { label: "Regulatory status", order: ["Ongoing", "Acceptance pending", "Finalised", "Adopted", "Rejected", "Discontinued", "Not applicable", "Unknown"] },
     stage: { label: "Regulatory stage", order: ["Test Submission", "Validation", "Regulatory assessment", "Unknown"] },
-    evidenceUpdatedStage: { label: "Evidence-updated stage", codes: true, order: Object.keys(stageCodeLabels) },
+    evidenceUpdatedStage: { label: "External step/stage", codes: true, order: Object.keys(stageCodeLabels) },
+    progressionBeyondTsar: { label: "Progression beyond TSAR", order: ["Progressed beyond TSAR snapshot", "Stage revised, no progression", "No change from TSAR snapshot", "No external evidence recorded"] },
+    caseStudy: { label: "Case-study sample", order: ["Direct case study", "Borderline transition case", "Not in case-study sample"] },
     bottlenecks: { label: "Bottleneck profile", multi: true },
     bottleneckCount: { label: "Number of bottleneck signals", numeric: true },
     threeR: { label: "3R category", order: ["Replacement", "Reduction", "Refinement", "Unknown"] },
@@ -42,9 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
     endpoint: { label: "Endpoint category", multi: true },
     methodology: { label: "Core methodology", multi: true },
     applicationDomain: { label: "Application domain", multi: true },
-    applicationDomainExpert: { label: "Expert application domain", multi: true }
+    applicationDomainExpert: { label: "Researcher application domain", multi: true }
   };
-  const naturalGroups = new Set(["stage", "workflowStep", "status", "threeR", "animalUseImpact"]);
+  const naturalGroups = new Set(["stage", "workflowStep", "status", "threeR", "animalUseImpact", "progressionBeyondTsar", "caseStudy"]);
   const palette = ["#0a3d80", "#347fd6", "#2ca6b0", "#e6a33a", "#7a67c7", "#d0605e", "#5a9e4b", "#8ad6df", "#b07aa1", "#9c755f", "#f2c14e", "#6b7c93", "#1f7a8c", "#c9a0dc", "#3d5a80", "#e07a5f", "#81b29a", "#bab0ac"];
 
   const labelOf = (key, value) => (variables[key]?.codes && stageCodeLabels[value] ? stageCodeLabels[value] : value);
@@ -217,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const selected = focus && focus.value === row.name ? " is-focused" : "";
       return `<button type="button" class="vcol${selected}" data-focus-value="${esc(row.name)}" aria-pressed="${selected ? "true" : "false"}" aria-label="${esc(labelOf(p.group, row.name))}: ${row.total} records, ${pct(row.total, data.length)}. Show these records."><strong class="vcol-value" style="bottom:calc(${h}% + 4px)">${measure === "count" ? row.total : pct(row.total, data.length)}</strong><div class="vcol-bar" style="height:${h}%">${segments}</div><em class="vcol-label">${esc(labelOf(p.group, row.name))}</em></button>`;
     }).join("");
-    return `<div class="vchart"><div class="vchart-yaxis" aria-hidden="true">${p.axis.ticks.map(t => `<em style="bottom:${t / p.axis.max * 100}%">${tickText(p.axis, t)}</em>`).join("")}</div><div class="vchart-scroll"><div class="vchart-plot" style="min-width:${p.shown.length * 58}px">${grid}${cols}</div></div></div><p class="axis-title">${esc(p.axis.title)}</p>`;
+    return `<div class="vchart"><div class="vchart-yaxis" aria-hidden="true">${p.axis.ticks.map(t => `<em style="bottom:${t / p.axis.max * 100}%">${tickText(p.axis, t)}</em>`).join("")}</div><div class="vchart-scroll"><div class="vchart-plot" style="min-width:${p.shown.length * 82}px">${grid}${cols}</div></div></div><p class="axis-title">${esc(p.axis.title)}</p>`;
   };
 
   const drawLegend = p => {
@@ -277,14 +279,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const listed = focus ? data.filter(record => parts(record, group).includes(focus.value)) : data;
     focusEl.innerHTML = focus ? `Showing records where <strong>${esc(groupSpec.label)}</strong> is <strong>${esc(labelOf(group, focus.value))}</strong>. <button type="button" class="link-button" data-clear-focus>Show all selected records</button>` : "";
     focusEl.hidden = !focus;
-    recordsHeading.textContent = listed.length ? `Showing ${Math.min(visible, listed.length)} of ${listed.length} records behind this view.` : "No records to show.";
-    recordGrid.innerHTML = listed.slice(0, visible).map(m => `<a href="../explore/method-detail.html?id=${encodeURIComponent(m.id)}" class="panel card text-decoration-none" data-analysis-record="${esc(m.id)}"><span>${esc(m.id)} · ${esc(m.status)}</span><strong>${esc(m.shortName)}</strong><small>${esc(m.endpoint)}</small><i>${esc(m.methodology)} →</i></a>`).join("");
+    // Always fill complete rows of cards: round the count up to a multiple of the number of grid columns.
+    const cols = gridColumns(), count = Math.min(listed.length, Math.ceil(visible / cols) * cols), step = cols * 4;
+    recordsHeading.textContent = listed.length ? `Showing ${count} of ${listed.length} records behind this view.` : "No records to show.";
+    recordGrid.innerHTML = listed.slice(0, count).map(m => `<a href="../explore/method-detail.html?id=${encodeURIComponent(m.id)}" class="panel card text-decoration-none" data-analysis-record="${esc(m.id)}"><span>${esc(m.id)} · ${esc(m.status)}</span><strong>${esc(m.shortName)}</strong><small>${esc(m.endpoint)}</small><i>${esc(m.methodology)} →</i></a>`).join("");
     document.querySelectorAll(".analysis-record-more").forEach(el => el.remove());
-    if (visible < listed.length) {
+    if (count < listed.length) {
       const wrap = document.createElement("div"); wrap.className = "analysis-record-more";
       const more = document.createElement("button"); more.type = "button"; more.className = "show-more btn btn-outline-primary";
-      more.textContent = `Show ${Math.min(24, listed.length - visible)} more`;
-      more.addEventListener("click", () => { visible += 24; draw(); });
+      more.textContent = `Show ${Math.min(step, listed.length - count)} more`;
+      more.addEventListener("click", () => { visible = count + step; draw(); });
       const all = document.createElement("button"); all.type = "button"; all.className = "show-more btn btn-outline-primary";
       all.textContent = `Show all ${listed.length}`;
       all.addEventListener("click", () => { visible = listed.length; draw(); });
@@ -295,6 +299,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- Events ---------- */
   const reset = () => { visible = 12; focus = null; };
+  let lastCols = 0;
+  const gridColumns = () => Math.max(1, getComputedStyle(recordGrid).gridTemplateColumns.split(" ").filter(Boolean).length);
+  window.addEventListener("resize", () => { const cols = gridColumns(); if (cols !== lastCols) { lastCols = cols; draw(); } });
   const autoSort = () => {
     if (!sortSelect) return;
     const spec = variables[groupSelect.value] || {};
