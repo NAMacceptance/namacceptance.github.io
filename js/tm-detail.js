@@ -73,7 +73,7 @@
         icon: '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;width:28px!important;height:28px!important;"><path d="M3 9h18L12 3 3 9zm2 2v7m4-7v7m6-7v7m4-7v7M3 21h18M2 18h20"/></svg>'
       },
       {
-        label: "Adoption",
+        label: "Adopted",
         icon: '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;width:26px!important;height:26px!important;"><polyline points="20 6 9 17 4 12"/></svg>'
       }
     ];
@@ -100,6 +100,14 @@
 
       const labelStyle = `margin-top:10px!important;font-size:12.5px!important;font-weight:${isCurrent ? '700' : '500'}!important;color:${isCurrent ? '#123f73' : isPast ? '#35516d' : '#64748b'}!important;line-height:1.25!important;text-align:center!important;display:block!important;`;
 
+      const adoptedStep = isCurrent && !stopped && index === stages.length - 1;
+      if (adoptedStep) {
+        // Adoption is the milestone: a glowing ring with a check on a small pedestal, with rays above.
+        const rays = `<svg viewBox="0 0 60 18" width="60" height="18" aria-hidden="true" style="position:absolute!important;top:-24px!important;left:50%!important;transform:translateX(-50%)!important;display:block!important;overflow:visible!important;"><g stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"><line x1="30" y1="1" x2="30" y2="8"/><line x1="15" y1="5" x2="19" y2="11"/><line x1="45" y1="5" x2="41" y2="11"/></g></svg>`;
+        const ring = `<div class="journey-icon journey-adopted" aria-label="Adopted" style="width:72px!important;height:72px!important;min-width:72px!important;max-width:72px!important;min-height:72px!important;max-height:72px!important;border-radius:50%!important;background:#fff!important;color:#d97706!important;border:3px solid #f59e0b!important;box-shadow:0 0 0 6px rgba(245,158,11,0.18),0 0 24px 4px rgba(245,158,11,0.45)!important;display:flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;width:34px!important;height:34px!important;"><polyline points="20 6 9 17 4 12"/></svg></div>`;
+        const pedestal = `<div aria-hidden="true" style="width:64px!important;height:12px!important;margin:4px auto 0!important;border-radius:50%!important;background:radial-gradient(ellipse at 50% 40%,#ffffff 0%,#fff6e6 60%,#fde9c4 100%)!important;border:1px solid #f6dcaa!important;box-shadow:0 4px 10px rgba(245,158,11,0.35)!important;"></div>`;
+        return `<div class="journey-step current adopted" style="flex:0 0 96px!important;width:96px!important;min-width:96px!important;max-width:96px!important;display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;position:relative!important;z-index:2!important;box-sizing:border-box!important;margin-top:-7px!important;">${rays}${ring}${pedestal}<span class="journey-label" style="margin-top:8px!important;font-size:14px!important;font-weight:800!important;color:#123f73!important;line-height:1.2!important;text-align:center!important;display:block!important;">${stage.label}</span></div>`;
+      }
       const step = `<div class="journey-step ${stepClass}" style="flex:0 0 88px!important;width:88px!important;min-width:88px!important;max-width:88px!important;display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;position:relative!important;z-index:2!important;box-sizing:border-box!important;"><div class="journey-icon" style="${iconStyle}" ${isCurrent && stopped ? 'aria-label="Stopped at this stage"' : ""}>${isCurrent && stopped ? stopIcon : stage.icon}</div><span class="journey-label" style="${labelStyle}">${stage.label}${isCurrent && stopped ? '<small style="display:block!important;margin-top:3px!important;color:#b42318!important;font-size:10.5px!important;font-weight:700!important;">Stopped here</small>' : ""}</span></div>`;
 
       let connector = "";
@@ -112,13 +120,17 @@
           : isConnPast ? "#b9cee0" : "#dbe4ec";
         const arrowColor = isConnActive ? (stopped ? "#dc4b43" : "#f59e0b") : isConnPast ? "#8fa8c0" : "#a8bccc";
 
+        if (isConnActive && !stopped && index === stages.length - 2) {
+          connector = `<div class="journey-connector active adopted-lead" aria-hidden="true" style="flex:1 1 0!important;height:3px!important;margin-top:29px!important;margin-left:-6px!important;margin-right:-2px!important;position:relative!important;z-index:1!important;background:#f59e0b!important;min-width:24px!important;"><svg viewBox="0 0 10 12" width="10" height="12" style="position:absolute!important;right:-4px!important;top:50%!important;transform:translateY(-50%)!important;overflow:visible!important;display:block!important;"><polygon points="0,0 10,6 0,12" fill="#f59e0b"/></svg></div>`;
+          return step + connector;
+        }
         connector = `<div class="journey-connector ${connClass}" aria-hidden="true" style="flex:1 1 0!important;height:2px!important;margin-top:29px!important;margin-left:-6px!important;margin-right:-6px!important;position:relative!important;z-index:1!important;background:${connBg}!important;min-width:24px!important;"><svg viewBox="0 0 8 10" width="8" height="10" style="position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;overflow:visible!important;display:block!important;"><polygon points="0,1 6,5 0,9" fill="${arrowColor}"/></svg></div>`;
       }
 
       return step + connector;
     }).join("");
 
-    return `<section class="regulatory-journey-card" aria-label="Regulatory journey" style="background:#fff!important;border:1px solid #dbe6ef!important;border-radius:12px!important;padding:20px 24px 22px!important;width:100%!important;box-sizing:border-box!important;margin-top:0!important;margin-bottom:20px!important;box-shadow:0 2px 8px rgba(10,45,82,0.04)!important;"><div class="journey-heading" style="display:flex!important;align-items:center!important;gap:9px!important;margin-bottom:20px!important;"><div class="journey-heading-icon" aria-hidden="true" style="width:26px!important;height:26px!important;border-radius:50%!important;background:#1f5c94!important;color:#fff!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 26px!important;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div><h3 style="margin:0!important;color:#123f73!important;font-size:16px!important;font-weight:700!important;">Regulatory journey</h3></div><div class="journey-path" style="display:flex!important;flex-direction:row!important;align-items:flex-start!important;justify-content:space-between!important;width:100%!important;box-sizing:border-box!important;padding:10px 10px 6px!important;overflow-x:auto!important;overflow-y:visible!important;">${path}</div></section>`;
+    return `<section class="regulatory-journey-card" aria-label="Regulatory journey" style="background:#fff!important;border:1px solid #dbe6ef!important;border-radius:12px!important;padding:20px 24px 22px!important;width:100%!important;box-sizing:border-box!important;margin-top:0!important;margin-bottom:20px!important;box-shadow:0 2px 8px rgba(10,45,82,0.04)!important;"><div class="journey-heading" style="display:flex!important;align-items:center!important;gap:9px!important;margin-bottom:20px!important;"><div class="journey-heading-icon" aria-hidden="true" style="width:26px!important;height:26px!important;border-radius:50%!important;background:#1f5c94!important;color:#fff!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 26px!important;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div><h3 style="margin:0!important;color:#123f73!important;font-size:16px!important;font-weight:700!important;">Regulatory journey</h3></div><div class="journey-path" style="display:flex!important;flex-direction:row!important;align-items:flex-start!important;justify-content:space-between!important;width:100%!important;box-sizing:border-box!important;padding:${active === stages.length - 1 && !stopped ? "38px 30px 8px 10px" : "10px 10px 6px"}!important;overflow-x:auto!important;overflow-y:visible!important;">${path}</div></section>`;
   };
 
   const bottlenecks = record => {
@@ -323,11 +335,11 @@
 
   const reportDraft = (method) => {
     if (!method) return;
-    const subject = `Report concerning ${method.shortName || method.title} (${method.id})`;
-    const body = `Hello,\n\nI would like to report an issue or suggestion concerning the following TSAR method:\n\nMethod: ${method.shortName || method.title}\nTM ID: ${method.id}\n\nIssue or correction:\n\n\nSource or supporting link (optional):\n\n\nBest regards,`;
+    const subject = `Suggested update or correction: ${method.shortName || method.title} (${method.id})`;
+    const body = `Hello,\n\nI would like to suggest an update or correction for the following TSAR method:\n\nMethod: ${method.shortName || method.title}\nTM ID: ${method.id}\n\nSuggested update or correction:\n\n\nSource or supporting link (optional):\n\n\nBest regards,`;
     const report = document.createElement("div");
     report.className = "modal-backdrop report-backdrop";
-    report.innerHTML = `<section class="record-modal report-modal" role="dialog" aria-modal="true" aria-labelledby="report-title"><header><div><span>REPORT A METHOD</span><h2 id="report-title">${esc(method.shortName || method.title)}</h2><p>${esc(method.id)} · A draft only — nothing is sent automatically.</p></div><button class="btn btn-sm" data-close-report aria-label="Close report draft">×</button></header><div class="record-body"><label class="report-field"><span>Recipient email</span><input type="email" data-report-recipient placeholder="Your email address" autocomplete="email"></label><label class="report-field"><span>Subject</span><input type="text" data-report-subject value="${esc(subject)}"></label><label class="report-field"><span>Message</span><textarea data-report-body rows="13">${esc(body)}</textarea></label><div class="report-actions"><button class="btn btn-outline-primary" type="button" data-copy-report>Copy draft</button><button class="btn btn-primary" type="button" data-open-email>Open email draft →</button></div></div></section>`;
+    report.innerHTML = `<section class="record-modal report-modal" role="dialog" aria-modal="true" aria-labelledby="report-title"><header><div><span>SUGGEST AN UPDATE OR CORRECTION</span><h2 id="report-title">${esc(method.shortName || method.title)}</h2><p>${esc(method.id)} · A draft only — nothing is sent automatically.</p></div><button class="btn btn-sm" data-close-report aria-label="Close report draft">×</button></header><div class="record-body"><label class="report-field"><span>Recipient email</span><input type="email" data-report-recipient placeholder="Your email address" autocomplete="email"></label><label class="report-field"><span>Subject</span><input type="text" data-report-subject value="${esc(subject)}"></label><label class="report-field"><span>Message</span><textarea data-report-body rows="13">${esc(body)}</textarea></label><div class="report-actions"><button class="btn btn-outline-primary" type="button" data-copy-report>Copy draft</button><button class="btn btn-primary" type="button" data-open-email>Open email draft →</button></div></div></section>`;
     const close = () => report.remove();
     const fields = () => ({
       recipient: report.querySelector("[data-report-recipient]").value.trim(),
@@ -425,7 +437,7 @@
       ${bottlenecks(record)}
     </div>
 
-    <details class="tm-disclosure" open>
+    <details class="tm-disclosure">
       <summary><span><b>TSAR source data</b><small>Complete raw record fields</small></span><span aria-hidden="true">⌄</span></summary>
       <div class="tm-additional-grid" style="padding:15px; background:#f4f7f9; border-radius:0 0 9px 9px; border-top:1px solid #e2eaf0;">
         ${rawDataMarkup}
@@ -443,7 +455,7 @@
 
     <div class="record-actions tm-detail-actions">
       <a href="https://tsar.jrc.ec.europa.eu/test-method/${encodeURIComponent(String(record.id).toLowerCase())}" class="btn btn-outline-primary" target="_blank" rel="noopener">View on TSAR website ↗</a>
-      <button class="btn btn-outline-primary" type="button" data-report-method>Report this method</button>
+      <button class="btn btn-outline-primary" type="button" data-report-method>Suggest an update or correction</button>
     </div>
   </div>
 </${containerTag}>`;
