@@ -9,8 +9,8 @@
   <!-- TemplateBeginEditable name="page-description" -->
   <meta name="description" content="Search, filter and inspect TSAR-listed methods.">
   <!-- TemplateEndEditable -->
-  <link rel="icon" type="image/png" href="../images/favicon.png?v=20260926b">
-  <link rel="stylesheet" href="../css/site.css?v=20260928-sidebar-card-v2">
+  <link rel="icon" type="image/png" href="../images/web/favicon.png?v=20260929">
+  <link rel="stylesheet" href="../css/site.css?v=20260929-web-images">
   <link rel="stylesheet" href="../css/bootstrap-studio.css">
 <style>
 /* Explore Data page styles (page-specific, 28 September 2026 usability update) */
@@ -119,11 +119,11 @@ th[aria-sort=ascending] .sort-icon,th[aria-sort=descending] .sort-icon{color:#0e
 <body>
 <!-- TemplateBeginEditable name="page-content" -->
 <main class="app-shell container-fluid">
-<aside class="sidebar "><a class="brand" href="../" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home"><img class="brand-logo" src="../images/nam-dashboard-logo-compact.png?v=20260926c" alt="Dashboard for Regulatory Acceptance of NAMs"/></a>
+<aside class="sidebar "><a class="brand" href="../" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home"><img class="brand-logo" src="../images/web/nam-dashboard-logo-compact.webp" alt="Dashboard for Regulatory Acceptance of NAMs"/></a>
 <nav aria-label="Primary navigation"><a class="nav-item" href="../"><span aria-hidden="true">⌂</span>Home</a><a class="nav-item" href="../project-overview/"><span aria-hidden="true">◇</span>Project Overview</a><a class="nav-item" href="../methodology/"><span aria-hidden="true">⌁</span>Methodology</a><div class="nav-group"><button class="nav-item nav-group-toggle active" type="button" aria-expanded="false" aria-controls="explore-submenu"><span aria-hidden="true">⌕</span><span class="nav-group-label">Explore the data</span><span class="nav-chevron" aria-hidden="true">›</span></button><div class="nav-submenu" id="explore-submenu"><a class="nav-subitem" href="../dictionary/">Data Guide</a><a class="nav-subitem active" href="../explore/">Explore Data</a><a class="nav-subitem" href="../analysis/">Analysis Explorer</a><a class="nav-subitem" href="../visualizations/">Visualizations</a></div></div><a class="nav-item" href="../Q&A/"><span class="qa-nav-icon" aria-hidden="true">?</span>Q&amp;A</a><a class="nav-item" href="../findings/"><span aria-hidden="true">◎</span>Findings</a><a class="nav-item" href="../downloads/"><span aria-hidden="true">⇩</span>Downloads</a></nav>
 <div class="sidebar-note"><span>Research release · 25 September 2026</span><strong>147 TSAR records</strong><small>147 researcher verified</small></div>
 <div class="sidebar-footer">
-<div class="sidebar-logos" aria-label="Institutional affiliations"><a href="https://www.uu.nl/en" target="_blank" rel="noreferrer" aria-label="Utrecht University"><img class="logo-uu" src="../images/utrecht-university.png" alt="Utrecht University"/></a></div>
+<div class="sidebar-logos" aria-label="Institutional affiliations"><a href="https://www.uu.nl/en" target="_blank" rel="noreferrer" aria-label="Utrecht University"><img class="logo-uu" src="../images/web/utrecht-university.webp" alt="Utrecht University"/></a></div>
 <p>Research Project</p><small>MSc Health &amp; Environment<br/>Utrecht University</small></div>
 </aside>
 <section class="workspace">
@@ -140,36 +140,43 @@ th[aria-sort=ascending] .sort-icon,th[aria-sort=descending] .sort-icon{color:#0e
 <span class="tb-label">Filters</span>
 <label class="tb-filter"><span>Status</span><select class="form-select" data-explore-filter="status"><option value="">All</option></select></label>
 <label class="tb-filter"><span>Stage</span><select class="form-select" data-explore-filter="stage"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Endpoint</span><select class="form-select" data-explore-filter="endpoint"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Methodology</span><select class="form-select" data-explore-filter="methodology"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Year</span><select class="form-select" data-explore-filter="yearReceived"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Bottleneck</span><select class="form-select" data-explore-filter="bottlenecks"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Endpoint category</span><select class="form-select" data-explore-filter="endpoint"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Core methodology</span><select class="form-select" data-explore-filter="methodology"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Year received</span><select class="form-select" data-explore-filter="yearReceived"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Documented bottleneck signal</span><select class="form-select" data-explore-filter="bottlenecks"><option value="">All</option></select></label>
 <button type="button" class="more-filters-toggle" data-more-button aria-expanded="false" aria-controls="explore-more-filters">More filters<span class="more-count" data-more-count></span><span class="chev" aria-hidden="true">▾</span></button>
 </div>
 <div class="more-filters-panel" id="explore-more-filters" hidden>
-<div class="more-group"><span class="derived-chip">Derived</span>
-<label class="tb-filter"><span>TSAR stage</span><select class="form-select" data-explore-filter="code"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Domain</span><select class="form-select" data-explore-filter="applicationDomainExpert"><option value="">All</option></select></label>
-<label class="tb-filter"><span>No. of bottleneck signals</span><select class="form-select" data-explore-filter="bottleneckCount"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Review level</span><select class="form-select" data-explore-filter="coreVerification"><option value="">All</option></select></label>
-<label class="tb-filter"><span>External step/stage</span><select class="form-select" data-explore-filter="evidenceUpdatedStage"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Progression beyond TSAR</span><select class="form-select" data-explore-filter="progressionBeyondTsar"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Case study</span><select class="form-select" data-explore-filter="caseStudy"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Lifecycle check</span><select class="form-select" data-explore-filter="lifecycleVerification"><option value="">All</option></select></label>
-</div>
-<div class="more-group"><span class="source-chip">TSAR source</span>
-<label class="tb-filter"><span>Organisation</span><select class="form-select" data-explore-filter="organisation"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Workflow step</span><select class="form-select" data-explore-filter="workflowStep"><option value="">All</option></select></label>
+<div class="more-group"><span class="source-chip">TSAR source variables</span>
+<label class="tb-filter"><span>Original workflow step</span><select class="form-select" data-explore-filter="workflowStep"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Combined step/stage</span><select class="form-select" data-explore-filter="stepStage"><option value="">All</option></select></label>
 <label class="tb-filter"><span>Workflow stage</span><select class="form-select" data-explore-filter="workflowStage"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Step/stage</span><select class="form-select" data-explore-filter="stepStage"><option value="">All</option></select></label>
 <label class="tb-filter"><span>Topic</span><select class="form-select" data-explore-filter="topic"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Organisation</span><select class="form-select" data-explore-filter="organisation"><option value="">All</option></select></label>
+</div>
+<div class="more-group"><span class="derived-chip">Lifecycle and status</span>
+<label class="tb-filter"><span>NEW_STEP_STAGE</span><select class="form-select" data-explore-filter="code"><option value="">All</option></select></label>
+<label class="tb-filter"><span>External evidence step/stage</span><select class="form-select" data-explore-filter="evidenceUpdatedStage"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Lifecycle update beyond raw TSAR</span><select class="form-select" data-explore-filter="progressionBeyondTsar"><option value="">All</option></select></label>
+</div>
+<div class="more-group"><span class="derived-chip">Research classifications</span>
+<label class="tb-filter"><span>Case-study sample</span><select class="form-select" data-explore-filter="caseStudy"><option value="">All</option></select></label>
+<label class="tb-filter"><span>3R category</span><select class="form-select" data-explore-filter="threeR"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Animal-use impact</span><select class="form-select" data-explore-filter="animalUseImpact"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Literature completeness</span><select class="form-select" data-explore-filter="literature"><option value="">All</option></select></label>
+</div>
+<div class="more-group"><span class="derived-chip">Method profile</span>
+<label class="tb-filter"><span>Researcher application domain</span><select class="form-select" data-explore-filter="applicationDomainExpert"><option value="">All</option></select></label>
+</div>
+<div class="more-group"><span class="derived-chip">Documented bottlenecks</span>
+<label class="tb-filter"><span>Number of bottleneck signals</span><select class="form-select" data-explore-filter="bottleneckCount"><option value="">All</option></select></label>
 </div>
 <div class="more-group"><span class="plain-chip">Search in</span>
 <label class="tb-filter tb-text"><span>ID / short name</span><input class="form-control" data-explore-filter="idQuery" placeholder="e.g. TM2026-01"></label>
 <label class="tb-filter tb-text"><span>Title</span><input class="form-control" data-explore-filter="titleQuery" placeholder="Words in the full title"></label>
 <label class="tb-filter tb-text"><span>Source text</span><input class="form-control" data-explore-filter="textQuery" placeholder="Description, comments, protocol"></label>
 </div>
-<p class="more-note">Numbers in brackets show how many of the 147 methods have each value. Derived variables are research classifications; TSAR source variables come straight from the snapshot.</p>
+<p class="more-note">Numbers in brackets show how many of the 147 methods have each value. Source variables come straight from TSAR; the other groups are derived research classifications.</p>
 </div>
 </section>
 <div class="active-filters" data-active-filters aria-live="polite"><span class="chips-label">No filters applied.</span></div>
@@ -193,10 +200,10 @@ th[aria-sort=ascending] .sort-icon,th[aria-sort=descending] .sort-icon{color:#0e
 <div class="table-scroll">
 <table class="table table-hover explore-table compare-off">
 <thead>
-<tr><th scope="col" class="col-compare"><span class="compare-head">Pick</span></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="shortName">Method <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="endpoint">Endpoint <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="methodology">Core methodology <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="stage">Regulatory stage <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="status">Status <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="code">TSAR snapshot stage <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="yearReceived">Year <span class="sort-icon" aria-hidden="true">↕</span></button></th><th><span class="sr-only">Open</span></th></tr>
+<tr><th scope="col" class="col-compare"><span class="compare-head">Pick</span></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="shortName">Method <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="applicationDomainExpert">Researcher application domain <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="endpoint">Endpoint category <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="methodology">Core methodology <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="stage">Regulatory stage <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="status">Status <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="code">NEW_STEP_STAGE <span class="sort-icon" aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-button" data-sort="yearReceived">Year received <span class="sort-icon" aria-hidden="true">↕</span></button></th><th><span class="sr-only">Open</span></th></tr>
 </thead>
 <tbody data-explore-results>
-<tr><td colspan="9" class="empty-state">Loading methods…</td></tr>
+<tr><td colspan="10" class="empty-state">Loading methods…</td></tr>
 </tbody>
 </table>
 </div>
@@ -212,13 +219,11 @@ th[aria-sort=ascending] .sort-icon,th[aria-sort=descending] .sort-icon{color:#0e
 </main>
 <!-- TemplateEndEditable -->
 <script src="../js/base.js"></script>
-<script src="../js/data.js?v=20260928-researcher"></script>
+<script src="../js/data.js?v=20260929-bottleneck-taxonomy"></script>
 <script src="../js/extra-variables.js?v=20260928"></script>
-<script src="../js/explore.js?v=20260928-progression"></script>
+<script src="../js/explore.js?v=20260929-variable-taxonomy"></script>
 </body>
 </html>
-
-
 
 
 

@@ -9,8 +9,8 @@
   <!-- TemplateBeginEditable name="page-description" -->
   <meta name="description" content="Explore descriptive analyses of the TSAR research snapshot.">
   <!-- TemplateEndEditable -->
-  <link rel="icon" type="image/png" href="../images/favicon.png?v=20260926b">
-  <link rel="stylesheet" href="../css/site.css?v=20260928-sidebar-card-v2">
+  <link rel="icon" type="image/png" href="../images/web/favicon.png?v=20260929">
+  <link rel="stylesheet" href="../css/site.css?v=20260929-web-images">
   <link rel="stylesheet" href="../css/bootstrap-studio.css">
 <style>
 /* Analysis Explorer page styles (page-specific, 27 September 2026 usability update) */
@@ -120,17 +120,110 @@
 .chart-legend .legend-item.is-off{opacity:.45;text-decoration:line-through}
 .chart-legend .legend-item i{display:inline-block;width:12px;height:12px;border-radius:3px}
 .cat-note{margin-top:10px}
+.analysis-chart .hbar i,.analysis-chart .vcol-bar i{display:flex;align-items:center;justify-content:center;overflow:hidden}
+.chart-options .opt-check{flex-direction:row;align-items:center;gap:7px;height:30px;padding:0 10px;border:1px solid #c7d7e6;border-radius:5px;background:#fff;color:#1d3f60;font-size:11px;letter-spacing:0;text-transform:none;cursor:pointer}
+.chart-options .opt-check input{width:15px;height:15px;margin:0;accent-color:#0e4b82;cursor:pointer}
+.analysis-stats{margin-top:16px;padding:16px 18px;border-radius:8px}
+.analysis-stats[hidden]{display:none}
+.stats-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:10px 16px}
+.stats-head h2{margin:2px 0 4px;color:#14436e;font-size:16px}
+.stats-head p{margin:0;color:#6c7c8f;font-size:11px}
+.stats-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:14px 0 0}
+.stats-summary>div{padding:10px 12px;border:1px solid #d9e7f2;border-radius:7px;background:#f5f9fd}
+.stats-summary span{display:block;margin-bottom:3px;color:#5f7487;font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.stats-summary strong{color:#0f2f57;font-size:14px}
+.stats-warn{margin:10px 0 0;padding:8px 12px;border-left:3px solid #e6a33a;border-radius:0 6px 6px 0;background:#fff8ec;color:#6b5320;font-size:11px;line-height:1.5}
+.stats-controls{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 8px}
+.stats-controls .tb-filter{display:inline-flex;align-items:center;height:30px;margin:0;border:1px solid #c7d7e6;border-radius:5px;background:#fff;overflow:hidden}
+.stats-controls .tb-filter>span{padding:0 8px;border-right:1px solid #e3edf5;background:#f6f9fc;color:#445d75;font-size:9.5px;font-weight:700;line-height:28px;text-transform:uppercase}
+.stats-controls select{width:auto;max-width:280px;height:28px;padding:0 24px 0 8px;border:0;box-shadow:none!important;color:#1d3f60;font-size:11.5px}
+.stats-explain{margin:0 0 10px;color:#475569;font-size:11.5px;line-height:1.55}
+.stats-scroll table.stats-table{min-width:680px}
+.stats-table td,.stats-table th{vertical-align:middle;font-size:11.5px}
+.stats-table td{font-variant-numeric:tabular-nums}
+.stats-table tr.is-ref td,.stats-table tr.is-ref th{background:#f6f9fc}
+.stats-table tr.is-ref small{margin-left:6px;color:#8595a8;font-weight:600;text-transform:uppercase;font-size:9px}
+.stats-table tr.is-sig td,.stats-table tr.is-sig th{background:#fffaeb}
+.stats-table .or-value{font-weight:800;color:#0f2f57}
+.ci-bar{position:relative;display:block;width:150px;height:10px;margin-top:4px;background:#f1f5f9;border-radius:3px}
+.ci-bar .ci-one{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:#8595a8}
+.ci-bar .ci-range{position:absolute;top:4px;height:2px;background:#347fd6}
+.ci-bar .ci-point{position:absolute;top:1px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#0a3d80}
+.stats-foot{margin:10px 0 0;color:#6c7c8f;font-size:10.5px;line-height:1.5}
+.pie-single{display:flex;flex-wrap:wrap;align-items:center;gap:24px 36px;margin-top:14px}
+.pie-legend{flex:1 1 280px;display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.pie-key{display:grid;grid-template-columns:14px 1fr auto 52px;align-items:center;gap:10px;width:100%;padding:5px 8px;border:1px solid transparent;border-radius:6px;background:none;color:#35516d;font:inherit;font-size:12px;text-align:left;cursor:pointer}
+.pie-key:hover,.pie-key:focus-visible,.pie-key.is-focused{border-color:#cddbe7;background:#f5f9fc}
+.pie-key i{width:12px;height:12px;border-radius:3px}.pie-key strong{color:#0f2f57}.pie-key small{color:#6c7c8f;text-align:right}
+.pie-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-top:14px}
+.pie-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px;border:1px solid #e3edf5;border-radius:8px;background:#fff;font:inherit;cursor:pointer}
+.pie-card:hover,.pie-card:focus-visible,.pie-card.is-focused{border-color:#1a5ea8;background:#f5f9fe}
+.pie-card span{color:#35516d;font-size:11.5px;font-weight:700;text-align:center;line-height:1.3}
+.pie-slice{cursor:pointer}.pie-slice.static{cursor:inherit}.pie-slice:hover path,.pie-slice:focus path,.pie-slice.is-focused path{stroke:#0f2f57;stroke-width:2}
+.analysis-chart .stack-track .seg-name{position:absolute;z-index:3;transform:translateX(-50%);padding:0 2px;background:#fff;font-size:9.5px;font-weight:800;font-style:normal;line-height:12px;white-space:nowrap;letter-spacing:.01em;pointer-events:none;filter:brightness(.8)}
+.analysis-chart .stack-track .seg-pointer{position:absolute;z-index:2;bottom:100%;width:1px;background:#9fb2c5;pointer-events:none}
+.analysis-chart .seg-label{display:block;padding:0 3px;font-size:10px;font-weight:700;font-style:normal;line-height:1;white-space:nowrap;pointer-events:none}
 @media(max-width:760px){.analysis-chart button.analysis-row,.analysis-axis-row{grid-template-columns:110px 1fr 58px}.analysis-result header{flex-direction:column;align-items:flex-start}.chart-options .opt select{min-width:150px}}
+/* Customise layout menu (29 September 2026) */
+.chart-customise{margin:8px 0 0;border:1px solid #e3edf5;border-radius:8px;background:#fff}
+.chart-customise>summary{display:flex;align-items:center;gap:8px;padding:8px 12px;color:#1b598b;font-size:11.5px;font-weight:700;cursor:pointer;list-style:none}
+.chart-customise>summary::-webkit-details-marker{display:none}
+.chart-customise>summary small{color:#8595a8;font-weight:500}
+.chart-customise>summary::after{content:"▾";margin-left:auto;color:#5d7894;transition:transform .15s ease}
+.chart-customise[open]>summary::after{transform:rotate(180deg)}
+.chart-customise[open]>summary{border-bottom:1px solid #e3edf5}
+.custom-body{padding:10px 12px 12px}
+.custom-presets{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:10px}
+.custom-presets>span{margin-right:4px;color:#556c82;font-size:9.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.custom-presets button:not(.link-button){padding:3px 10px;border:1px solid #c9dbe7;border-radius:999px;background:#f6fafc;color:#166280;font-size:10.5px;font-weight:600;cursor:pointer}
+.custom-presets button:not(.link-button):hover{border-color:#2ca6b0;background:#ebf7f7}
+.custom-presets .link-button{margin-left:6px;font-size:11px}
+.custom-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px 18px}
+.custom-field{display:flex;flex-direction:column;gap:4px;margin:0}
+.custom-field>span{display:flex;justify-content:space-between;color:#445d75;font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.custom-field output{color:#0e4b82;font-weight:800;text-transform:none}
+.custom-field input[type=range]{width:100%;accent-color:#0e4b82}
+.custom-field select{height:30px;padding:0 24px 0 8px;border:1px solid #c7d7e6;border-radius:5px;font-size:11.5px}
+.custom-check{flex-direction:row;align-items:center;gap:7px;align-self:end;height:30px;color:#1d3f60;font-size:11.5px}
+.custom-check input{width:15px;height:15px;margin:0;accent-color:#0e4b82}
+/* Variables used by the customise menu */
+.analysis-chart{gap:var(--row-gap,9px)}
+.analysis-chart button.analysis-row,.analysis-chart .analysis-axis-row{grid-template-columns:minmax(90px,var(--label-w,240px)) 1fr calc(70px*var(--font-scale,1))}
+.analysis-chart .analysis-row>span{font-size:calc(12px*var(--font-scale,1))}
+.analysis-chart .analysis-row>strong{font-size:calc(13px*var(--font-scale,1))}
+.analysis-chart .seg-label{font-size:calc(10px*var(--font-scale,1))}
+.analysis-chart .stack-track .seg-name{font-size:calc(9.5px*var(--font-scale,1));line-height:calc(12px*var(--font-scale,1))}
+.analysis-chart .analysis-axis-row em,.analysis-chart .vchart-yaxis em{font-size:calc(10px*var(--font-scale,1))}
+.analysis-chart .chart-legend,.analysis-chart .chart-legend .legend-item{font-size:calc(11px*var(--font-scale,1))}
+.analysis-chart .vcol{flex-basis:var(--col-w,76px)}
+.analysis-chart .vcol-label{font-size:calc(10px*var(--font-scale,1))}
+.analysis-chart .vcol-value{font-size:calc(10.5px*var(--font-scale,1))}
+.analysis-chart .pie-key{font-size:calc(12px*var(--font-scale,1))}
+.analysis-chart .pie-card span{font-size:calc(11.5px*var(--font-scale,1))}
+.analysis-chart .axis-title,.analysis-chart .analysis-hint{font-size:calc(10.5px*var(--font-scale,1))}
+.analysis-chart.no-grid .gridline,.analysis-chart.no-grid .hgrid{display:none}
+.analysis-stats{padding:0}
+.stats-details>summary{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:12px 16px;cursor:pointer;list-style:none}
+.stats-details>summary::-webkit-details-marker{display:none}
+.stats-details>summary::after{content:"▾";margin-left:auto;color:#5d7894;transition:transform .15s ease}
+.stats-details[open]>summary::after{transform:rotate(180deg)}
+.stats-details[open]>summary{border-bottom:1px solid #e3edf5}
+.stats-summary-title{color:#14436e;font-size:14px;font-weight:800}
+.stats-details>summary small{flex-basis:100%;color:#8595a8;font-size:10.5px}
+.beta-badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#7a67c7;color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.stats-body{padding:14px 18px 16px}
+.beta-note{margin:0 0 12px;padding:8px 12px;border-left:3px solid #7a67c7;border-radius:0 6px 6px 0;background:#f4f1fc;color:#463a73;font-size:11px;line-height:1.5}
+.analysis-chart{width:var(--chart-w,100%);max-width:100%}
 </style>
 </head>
 <body>
 <!-- TemplateBeginEditable name="page-content" -->
 <main class="app-shell container-fluid">
-<aside class="sidebar "><a class="brand" href="../" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home"><img class="brand-logo" src="../images/nam-dashboard-logo-compact.png?v=20260926c" alt="Dashboard for Regulatory Acceptance of NAMs"/></a>
+<aside class="sidebar "><a class="brand" href="../" aria-label="Dashboard for Regulatory Acceptance of NAMs — Home"><img class="brand-logo" src="../images/web/nam-dashboard-logo-compact.webp" alt="Dashboard for Regulatory Acceptance of NAMs"/></a>
 <nav aria-label="Primary navigation"><a class="nav-item" href="../"><span aria-hidden="true">⌂</span>Home</a><a class="nav-item" href="../project-overview/"><span aria-hidden="true">◇</span>Project Overview</a><a class="nav-item" href="../methodology/"><span aria-hidden="true">⌁</span>Methodology</a><div class="nav-group"><button class="nav-item nav-group-toggle active" type="button" aria-expanded="false" aria-controls="explore-submenu"><span aria-hidden="true">⌕</span><span class="nav-group-label">Explore the data</span><span class="nav-chevron" aria-hidden="true">›</span></button><div class="nav-submenu" id="explore-submenu"><a class="nav-subitem" href="../dictionary/">Data Guide</a><a class="nav-subitem" href="../explore/">Explore Data</a><a class="nav-subitem active" href="../analysis/" aria-current="page">Analysis Explorer</a><a class="nav-subitem" href="../visualizations/">Visualizations</a></div></div><a class="nav-item" href="../Q&A/"><span class="qa-nav-icon" aria-hidden="true">?</span>Q&amp;A</a><a class="nav-item" href="../findings/"><span aria-hidden="true">◎</span>Findings</a><a class="nav-item" href="../downloads/"><span aria-hidden="true">⇩</span>Downloads</a></nav>
 <div class="sidebar-note"><span>Research release · 25 September 2026</span><strong>147 TSAR records</strong><small>147 researcher verified</small></div>
 <div class="sidebar-footer">
-<div class="sidebar-logos" aria-label="Institutional affiliations"><a href="https://www.uu.nl/en" target="_blank" rel="noreferrer" aria-label="Utrecht University"><img class="logo-uu" src="../images/utrecht-university.png" alt="Utrecht University"/></a></div>
+<div class="sidebar-logos" aria-label="Institutional affiliations"><a href="https://www.uu.nl/en" target="_blank" rel="noreferrer" aria-label="Utrecht University"><img class="logo-uu" src="../images/web/utrecht-university.webp" alt="Utrecht University"/></a></div>
 <p>Research Project</p><small>MSc Health &amp; Environment<br/>Utrecht University</small></div>
 </aside>
 <section class="workspace">
@@ -144,24 +237,33 @@
 <label class="tb-field"><span>Group by</span><select class="form-select" data-analysis-filter="group">
 <optgroup label="TSAR source variables">
   <option value="workflowStep">Original workflow step</option>
+  <option value="stepStage">Combined step/stage</option>
+  <option value="workflowStage">Workflow stage</option>
+  <option value="topic">Topic</option>
   <option value="yearReceived">Year received</option>
   <option value="organisation">Organisation</option>
-  <option value="code">TSAR snapshot stage</option>
 </optgroup>
-<optgroup label="Derived research classifications">
+<optgroup label="Lifecycle and status">
   <option value="status" selected="">Regulatory status</option>
   <option value="stage">Regulatory stage</option>
-  <option value="evidenceUpdatedStage">External step/stage (evidence-updated)</option>
-  <option value="progressionBeyondTsar">Progression beyond TSAR</option>
+  <option value="code">NEW_STEP_STAGE</option>
+  <option value="evidenceUpdatedStage">External evidence step/stage</option>
+  <option value="progressionBeyondTsar">Lifecycle update beyond raw TSAR</option>
+</optgroup>
+<optgroup label="Research classifications">
   <option value="caseStudy">Case-study sample</option>
-  <option value="bottlenecks">Bottleneck profile</option>
-  <option value="bottleneckCount">Number of bottleneck signals</option>
   <option value="threeR">3R category</option>
   <option value="animalUseImpact">Animal-use impact</option>
+  <option value="literature">Literature completeness</option>
+</optgroup>
+<optgroup label="Method profile">
+  <option value="applicationDomainExpert">Researcher application domain</option>
   <option value="endpoint">Endpoint category</option>
   <option value="methodology">Core methodology</option>
-  <option value="applicationDomain">Application domain</option>
-  <option value="applicationDomainExpert">Researcher application domain</option>
+</optgroup>
+<optgroup label="Documented bottlenecks">
+  <option value="bottleneckCount">Number of bottleneck signals</option>
+  <option value="bottlenecks">Documented bottleneck signal</option>
 </optgroup>
 </select></label>
 <button type="button" class="swap-button" data-action="swap" aria-label="Swap grouping and comparison"><span aria-hidden="true">⇄</span></button>
@@ -169,24 +271,33 @@
 <option value="none" selected="">No comparison</option>
 <optgroup label="TSAR source variables">
   <option value="workflowStep">Original workflow step</option>
+  <option value="stepStage">Combined step/stage</option>
+  <option value="workflowStage">Workflow stage</option>
+  <option value="topic">Topic</option>
   <option value="yearReceived">Year received</option>
   <option value="organisation">Organisation</option>
-  <option value="code">TSAR snapshot stage</option>
 </optgroup>
-<optgroup label="Derived research classifications">
+<optgroup label="Lifecycle and status">
   <option value="status">Regulatory status</option>
   <option value="stage">Regulatory stage</option>
-  <option value="evidenceUpdatedStage">External step/stage (evidence-updated)</option>
-  <option value="progressionBeyondTsar">Progression beyond TSAR</option>
+  <option value="code">NEW_STEP_STAGE</option>
+  <option value="evidenceUpdatedStage">External evidence step/stage</option>
+  <option value="progressionBeyondTsar">Lifecycle update beyond raw TSAR</option>
+</optgroup>
+<optgroup label="Research classifications">
   <option value="caseStudy">Case-study sample</option>
-  <option value="bottlenecks">Bottleneck profile</option>
-  <option value="bottleneckCount">Number of bottleneck signals</option>
   <option value="threeR">3R category</option>
   <option value="animalUseImpact">Animal-use impact</option>
+  <option value="literature">Literature completeness</option>
+</optgroup>
+<optgroup label="Method profile">
+  <option value="applicationDomainExpert">Researcher application domain</option>
   <option value="endpoint">Endpoint category</option>
   <option value="methodology">Core methodology</option>
-  <option value="applicationDomain">Application domain</option>
-  <option value="applicationDomainExpert">Researcher application domain</option>
+</optgroup>
+<optgroup label="Documented bottlenecks">
+  <option value="bottleneckCount">Number of bottleneck signals</option>
+  <option value="bottlenecks">Documented bottleneck signal</option>
 </optgroup>
 </select></label>
 <label class="tb-field tb-narrow"><span>Order</span><select class="form-select" data-analysis-sort>
@@ -196,32 +307,44 @@
 </select></label>
 <button class="tb-reset" type="button" data-action="reset" title="Return to the default view and remove all filters">Reset all</button>
 </div>
-<div class="analysis-presets toolbar-presets" aria-label="Suggested research analyses"><span>Quick start</span><button type="button" data-analysis-preset="stage-evidence">TSAR vs evidence stage</button><button type="button" data-analysis-preset="bottleneck-profile">Bottleneck profile</button><button type="button" data-analysis-preset="bottleneck-outcome">Bottlenecks × outcome</button><button type="button" data-analysis-preset="three-r-impact">3Rs × animal-use impact</button><button type="button" data-analysis-preset="methods-outcome">Methodology × outcome</button><button type="button" data-analysis-preset="year-trend">Outcome by year received</button></div>
+<div class="analysis-presets toolbar-presets" aria-label="Suggested research analyses"><span>Quick start</span><button type="button" data-analysis-preset="stage-evidence">TSAR vs evidence stage</button><button type="button" data-analysis-preset="bottleneck-profile">Bottleneck signals</button><button type="button" data-analysis-preset="bottleneck-outcome">Bottlenecks × outcome</button><button type="button" data-analysis-preset="three-r-impact">3Rs × animal-use impact</button><button type="button" data-analysis-preset="methods-outcome">Methodology × outcome</button><button type="button" data-analysis-preset="year-trend">Outcome by year received</button></div>
 <div class="analysis-filters toolbar-filters">
 <div class="filter-row">
 <span class="tb-label">Filters<span class="filter-badge" data-filter-badge hidden></span></span>
 <label class="tb-filter"><span>Status</span><select class="form-select" data-analysis-filter="status"><option value="">All</option></select></label>
 <label class="tb-filter"><span>Stage</span><select class="form-select" data-analysis-filter="stage"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Endpoint</span><select class="form-select" data-analysis-filter="endpoint"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Methodology</span><select class="form-select" data-analysis-filter="methodology"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Endpoint category</span><select class="form-select" data-analysis-filter="endpoint"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Core methodology</span><select class="form-select" data-analysis-filter="methodology"><option value="">All</option></select></label>
 <button type="button" class="more-filters-toggle" data-more-filters aria-expanded="false" aria-controls="more-filters">More filters<span class="more-count" data-more-count></span><span class="chev" aria-hidden="true">▾</span></button>
 </div>
 <div class="more-filters-panel" id="more-filters" hidden>
-<div class="more-group"><span class="derived-chip">Derived</span>
-<label class="tb-filter"><span>Domain</span><select class="form-select" data-analysis-filter="applicationDomainExpert"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Bottleneck</span><select class="form-select" data-analysis-filter="bottlenecks"><option value="">All</option></select></label>
-<label class="tb-filter"><span>3R</span><select class="form-select" data-analysis-filter="threeR"><option value="">All</option></select></label>
-<label class="tb-filter"><span>External stage</span><select class="form-select" data-analysis-filter="evidenceUpdatedStage"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Progression</span><select class="form-select" data-analysis-filter="progressionBeyondTsar"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Case study</span><select class="form-select" data-analysis-filter="caseStudy"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Animal use</span><select class="form-select" data-analysis-filter="animalUseImpact"><option value="">All</option></select></label>
-</div>
-<div class="more-group"><span class="source-chip">TSAR source</span>
-<label class="tb-filter"><span>Year</span><select class="form-select" data-analysis-filter="yearReceived"><option value="">All</option></select></label>
+<div class="more-group"><span class="source-chip">TSAR source variables</span>
+<label class="tb-filter"><span>Original workflow step</span><select class="form-select" data-analysis-filter="workflowStep"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Combined step/stage</span><select class="form-select" data-analysis-filter="stepStage"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Workflow stage</span><select class="form-select" data-analysis-filter="workflowStage"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Topic</span><select class="form-select" data-analysis-filter="topic"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Year received</span><select class="form-select" data-analysis-filter="yearReceived"><option value="">All</option></select></label>
 <label class="tb-filter"><span>Organisation</span><select class="form-select" data-analysis-filter="organisation"><option value="">All</option></select></label>
-<label class="tb-filter"><span>Workflow step</span><select class="form-select" data-analysis-filter="workflowStep"><option value="">All</option></select></label>
 </div>
-<p class="more-note">Numbers in brackets show how many of the 147 records have each value. Derived variables are research classifications; TSAR source variables come straight from the snapshot.</p>
+<div class="more-group"><span class="derived-chip">Lifecycle and status</span>
+<label class="tb-filter"><span>NEW_STEP_STAGE</span><select class="form-select" data-analysis-filter="code"><option value="">All</option></select></label>
+<label class="tb-filter"><span>External evidence step/stage</span><select class="form-select" data-analysis-filter="evidenceUpdatedStage"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Lifecycle update beyond raw TSAR</span><select class="form-select" data-analysis-filter="progressionBeyondTsar"><option value="">All</option></select></label>
+</div>
+<div class="more-group"><span class="derived-chip">Research classifications</span>
+<label class="tb-filter"><span>Case-study sample</span><select class="form-select" data-analysis-filter="caseStudy"><option value="">All</option></select></label>
+<label class="tb-filter"><span>3R category</span><select class="form-select" data-analysis-filter="threeR"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Animal-use impact</span><select class="form-select" data-analysis-filter="animalUseImpact"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Literature completeness</span><select class="form-select" data-analysis-filter="literature"><option value="">All</option></select></label>
+</div>
+<div class="more-group"><span class="derived-chip">Method profile</span>
+<label class="tb-filter"><span>Researcher application domain</span><select class="form-select" data-analysis-filter="applicationDomainExpert"><option value="">All</option></select></label>
+</div>
+<div class="more-group"><span class="derived-chip">Documented bottlenecks</span>
+<label class="tb-filter"><span>Documented bottleneck signal</span><select class="form-select" data-analysis-filter="bottlenecks"><option value="">All</option></select></label>
+<label class="tb-filter"><span>Number of bottleneck signals</span><select class="form-select" data-analysis-filter="bottleneckCount"><option value="">All</option></select></label>
+</div>
+<p class="more-note">Numbers in brackets show how many of the 147 records have each value. Source variables come straight from TSAR; the other groups are derived research classifications.</p>
 </div>
 </div>
 </section>
@@ -230,19 +353,26 @@
 <header>
 <div><span class="eyebrow">Result</span><h2 id="result-title">Regulatory status</h2><p data-analysis-summary aria-live="polite">147 of 147 records selected · Percent of selected records (n = records)</p><p class="analysis-note" data-analysis-note hidden></p></div>
 <div class="analysis-actions analysis-view-toggles">
-<div class="segment-control" role="group" aria-label="Show as"><button type="button" class="selected" data-view="graph" aria-pressed="true">Graph</button><button type="button" data-view="table" aria-pressed="false">Table</button></div>
+<div class="segment-control" role="group" aria-label="Show as"><button type="button" class="selected" data-view="graph" aria-pressed="true">Graph</button><button type="button" data-view="pie" aria-pressed="false" title="Show as a pie chart">Pie</button><button type="button" data-view="table" aria-pressed="false">Table</button></div>
 <div class="segment-control" role="group" aria-label="Values"><button type="button" class="selected" data-measure="percent" aria-pressed="true">%</button><button type="button" data-measure="count" aria-pressed="false">Count</button></div>
 <button class="btn btn-sm" type="button" data-action="share" title="Copy a link that reopens exactly this view">Copy link</button><button class="btn btn-sm" type="button" data-action="csv" title="Download the numbers as a CSV file for Excel">Download CSV</button><button class="btn btn-sm" type="button" data-action="png" title="Download the chart as a PNG image">Download image</button>
 </div>
 </header>
 <div class="chart-options" data-chart-options role="group" aria-label="Chart options">
-<div class="opt graph-only"><span>Direction</span><div class="segment-control" role="group" aria-label="Chart direction"><button type="button" data-orient="horizontal" aria-pressed="true" class="selected" title="Categories down the side, values along the bottom">⟷ Bars</button><button type="button" data-orient="vertical" aria-pressed="false" title="Categories along the bottom, values up the side">↕ Columns</button></div></div>
+<div class="opt graph-only"><span>Chart type</span><div class="segment-control" role="group" aria-label="Chart direction"><button type="button" data-orient="horizontal" aria-pressed="true" class="selected" title="Categories down the side, values along the bottom">⟷ Bars</button><button type="button" data-orient="vertical" aria-pressed="false" title="Categories along the bottom, values up the side">↕ Columns</button><button type="button" data-orient="pie" aria-pressed="false" title="Show shares as a pie (donut) chart; when comparing, one small pie per category">◔ Pie</button></div></div>
 <label class="opt graph-only"><span>Scale</span><select class="form-select" data-analysis-scale>
   <option value="fit" selected="">Fit to the largest value</option>
   <option value="full">Full scale (0–100% of records)</option>
   <option value="share">100% per bar (compare the mix)</option>
 </select></label>
 <div class="opt graph-only"><span>Size</span><div class="segment-control" role="group" aria-label="Chart size"><button type="button" data-size="s" aria-pressed="false">S</button><button type="button" data-size="m" aria-pressed="true" class="selected">M</button><button type="button" data-size="l" aria-pressed="false">L</button></div></div>
+<label class="opt graph-only"><span>Labels</span><select class="form-select" data-analysis-labels>
+  <option value="off" selected="">No labels</option>
+  <option value="n">Numbers (n)</option>
+  <option value="pct">Percentages</option>
+  <option value="both">Numbers and percentages</option>
+</select></label>
+<label class="opt graph-only opt-check" title="Show the comparison category (for example REG_ADOPT) above each bar segment"><input type="checkbox" data-analysis-names> Names on bars</label>
 <label class="opt"><span>Categories</span><select class="form-select" data-analysis-top>
   <option value="0" selected="">Show all</option>
   <option value="5">Largest 5</option>
@@ -250,6 +380,23 @@
   <option value="15">Largest 15</option>
 </select></label>
 </div>
+<details class="chart-customise">
+<summary><span aria-hidden="true">⚙</span> Customise layout <small>text size, spacing, widths and colours</small></summary>
+<div class="custom-body">
+<div class="custom-presets"><span>Quick layouts</span><button type="button" data-layout-preset="compact">Compact</button><button type="button" data-layout-preset="print">Report / print</button><button type="button" data-layout-preset="presentation">Presentation</button><button type="button" class="link-button" data-action="fmt-reset">Reset layout</button></div>
+<div class="custom-grid">
+<label class="custom-field" title="Width of the chart as a share of the available space"><span>Chart length <output data-fmt-out="len">100%</output></span><input type="range" min="40" max="100" step="5" value="100" data-fmt="len" data-default="100"></label>
+<label class="custom-field" title="Column height in Columns, bar spacing in Bars, pie size in Pie"><span>Chart height <output data-fmt-out="plotH">auto</output></span><input type="range" min="160" max="680" step="10" value="320" data-fmt="plotH" data-default="320"></label>
+<label class="custom-field"><span>Text size <output data-fmt-out="font">100%</output></span><input type="range" min="80" max="150" step="5" value="100" data-fmt="font" data-default="100"></label>
+<label class="custom-field"><span>Bar thickness <output data-fmt-out="bar">auto</output></span><input type="range" min="6" max="48" step="1" value="18" data-fmt="bar" data-default="18"></label>
+<label class="custom-field"><span>Space between bars <output data-fmt-out="gap">auto</output></span><input type="range" min="0" max="36" step="1" value="9" data-fmt="gap" data-default="9"></label>
+<label class="custom-field"><span>Label column width <output data-fmt-out="labelW">auto</output></span><input type="range" min="100" max="420" step="10" value="240" data-fmt="labelW" data-default="240"></label>
+<label class="custom-field"><span>Column width (Columns view) <output data-fmt-out="colW">auto</output></span><input type="range" min="40" max="170" step="2" value="76" data-fmt="colW" data-default="76"></label>
+<label class="custom-field"><span>Colours</span><select class="form-select" data-fmt="palette"><option value="default">Dashboard blues and accents</option><option value="colourblind">Colour-blind safe (Okabe-Ito)</option><option value="muted">Muted (Tableau 10)</option><option value="blues">Shades of blue</option><option value="viridis">Viridis (colour-blind and print safe)</option><option value="contrast">High contrast</option><option value="pastel">Pastel</option><option value="greens">Shades of green</option><option value="warm">Warm oranges and reds</option><option value="uu">Utrecht University colours</option></select></label>
+<label class="custom-field custom-check"><input type="checkbox" checked data-fmt="grid"> Show gridlines</label>
+</div>
+</div>
+</details>
 <div class="analysis-chart" data-analysis-chart>
 <button type="button" class="analysis-row"><span>Discontinued</span>
 <div class="stack-track"><i style="width:100%;background:#0a3d80"></i></div>
@@ -259,6 +406,7 @@
 <strong>34.7% <small class="analysis-count">(n=51)</small></strong></button>
 </div>
 <p class="provenance-note">About these numbers: percentages use the selected records as the denominator. Derived groupings are research classifications, not TSAR source fields. Endpoint, methodology, application-domain and bottleneck groupings are multi-label, so one record can be counted more than once. Records without an external stage update are labelled explicitly.</p></section>
+<section class="analysis-stats panel card" data-analysis-stats aria-live="polite" hidden></section>
 <section class="section-block analysis-records">
 <div class="block-header">
 <div><span class="eyebrow">Underlying records</span><h2>Records behind this view</h2></div>
@@ -274,8 +422,8 @@
 </main>
 <!-- TemplateEndEditable -->
 <script src="../js/base.js"></script>
-<script src="../js/data.js?v=20260928-researcher"></script>
+<script src="../js/data.js?v=20260929-bottleneck-taxonomy"></script>
 <script src="../js/extra-variables.js?v=20260928"></script>
-<script src="../js/analysis.js?v=20260928-researcher"></script>
+<script src="../js/analysis.js?v=20260929-variable-taxonomy"></script>
 </body>
 </html>

@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return [String(m[key] ?? "").trim()].filter(Boolean);
   };
   const optionLabel = (key, value) => (key === "code" || key === "evidenceUpdatedStage") && stageCodeLabels[value] ? `${codeLabel(value)} (${value})` : value;
-  const orderFor = key => key === "code" || key === "evidenceUpdatedStage" ? codeOrder : key === "progressionBeyondTsar" ? ["Progressed beyond TSAR snapshot", "Stage revised, no progression", "No change from TSAR snapshot", "No external evidence recorded"] : key === "caseStudy" ? ["Direct case study", "Borderline transition case", "Not in case-study sample"] : key === "stage" ? stageOrder : key === "status" ? statusOrder : null;
+  const orderFor = key => key === "code" || key === "evidenceUpdatedStage" ? codeOrder : key === "progressionBeyondTsar" ? ["Lifecycle updated beyond raw TSAR snapshot", "Raw TSAR lifecycle retained"] : key === "caseStudy" ? ["Direct case study", "Borderline transition case", "Not included"] : key === "stage" ? stageOrder : key === "status" ? statusOrder : null;
   const compareValue = (key, a, b) => {
     if (key === "yearReceived") return Number(b) - Number(a);
     const order = orderFor(key);
@@ -122,20 +122,21 @@ document.addEventListener("DOMContentLoaded", () => {
     return `<tr class="${checked ? "is-selected" : ""}">
 <td class="col-compare"><input class="form-check-input" type="checkbox" aria-label="Compare ${esc(m.shortName)}" title="${full ? "You can compare up to 4 methods" : "Add to comparison"}" data-compare="${esc(m.id)}" ${checked ? "checked" : ""} ${full ? "disabled" : ""}></td>
 <td><a class="method-button btn btn-link p-0 text-start" href="method-detail.html?id=${encodeURIComponent(m.id)}" data-open-record="${esc(m.id)}" title="${esc(m.title)}"><strong>${highlight(m.shortName || m.title)}</strong><span>${highlight(m.id)} · ${esc(m.organisation || "")}</span></a></td>
+<td class="wrap-cell">${esc(m.applicationDomainExpert || "—")}</td>
 <td class="wrap-cell">${highlight(m.endpoint || "—")}</td>
 <td>${esc(m.methodology || "—")}</td>
 <td><span class="stage-tag ${slug(m.stage)}">${esc(m.stage || "—")}</span></td>
 <td><span class="status-pill status-${slug(m.status)}">${esc(m.status || "—")}</span></td>
-<td class="code-cell">${esc(codeLabel(m.code))}<code>${esc(m.code || "")}</code>${m.progressionBeyondTsar === "Progressed beyond TSAR snapshot" ? `<span class="prog-note" title="External evidence places this method at a later stage than the TSAR snapshot">↗ External: ${esc(codeLabel(m.evidenceUpdatedStage))}</span>` : m.progressionBeyondTsar === "Stage revised, no progression" ? `<span class="prog-note revised" title="External evidence records a different stage than the TSAR snapshot">↺ External: ${esc(codeLabel(m.evidenceUpdatedStage))}</span>` : ""}</td>
+<td class="code-cell">${esc(codeLabel(m.code))}<code>${esc(m.code || "")}</code>${m.progressionBeyondTsar === "Lifecycle updated beyond raw TSAR snapshot" ? `<span class="prog-note" title="The verified lifecycle differs from the raw TSAR snapshot">↗ External: ${esc(codeLabel(m.evidenceUpdatedStage))}</span>` : ""}</td>
 <td class="num-cell">${esc(m.yearReceived || "—")}</td>
 <td><a class="row-button btn btn-sm" href="method-detail.html?id=${encodeURIComponent(m.id)}" data-open-record="${esc(m.id)}" aria-label="Open ${esc(m.title)}">›</a></td></tr>`;
   };
 
   const compareFields = [
     ["Organisation", m => m.organisation], ["Year received", m => m.yearReceived], ["Regulatory stage", m => m.stage], ["Regulatory status", m => m.status],
-    ["TSAR snapshot stage", m => codeLabel(m.code)], ["External step/stage", m => codeLabel(m.evidenceUpdatedStage)], ["Progression beyond TSAR", m => m.progressionBeyondTsar], ["Case study", m => m.caseStudy], ["Endpoint", m => m.endpoint],
-    ["Core methodology", m => m.methodology], ["Application domain", m => m.applicationDomainExpert], ["3R category", m => m.threeR],
-    ["Animal-use impact", m => m.animalUseImpact], ["Bottleneck signals", m => m.bottlenecks], ["Number of bottleneck signals", m => m.bottleneckCount]
+    ["NEW_STEP_STAGE", m => codeLabel(m.code)], ["External evidence step/stage", m => codeLabel(m.evidenceUpdatedStage)], ["Lifecycle update beyond raw TSAR", m => m.progressionBeyondTsar], ["Case-study sample", m => m.caseStudy],
+    ["Literature completeness", m => m.literature], ["Researcher application domain", m => m.applicationDomainExpert], ["Endpoint category", m => m.endpoint], ["Core methodology", m => m.methodology],
+    ["3R category", m => m.threeR], ["Animal-use impact", m => m.animalUseImpact], ["Documented bottleneck signals", m => m.bottlenecks], ["Number of bottleneck signals", m => m.bottleneckCount]
   ];
   const renderCompare = () => {
     const tray = document.querySelector("[data-compare-tray]"), section = document.querySelector("[data-comparison]");
@@ -149,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const render = () => {
     current = sorted(records.filter(matches));
-    tbody.innerHTML = current.slice(0, visible).map(row).join("") || `<tr><td class="empty-state" colspan="9"><strong>No methods match this search.</strong> Try fewer words or remove a filter. <button type="button" class="btn btn-link" data-reset>Clear search and filters</button></td></tr>`;
+    tbody.innerHTML = current.slice(0, visible).map(row).join("") || `<tr><td class="empty-state" colspan="10"><strong>No methods match this search.</strong> Try fewer words or remove a filter. <button type="button" class="btn btn-link" data-reset>Clear search and filters</button></td></tr>`;
     resultLine.textContent = `${current.length} of ${records.length} methods`;
     showingLine.textContent = current.length ? `Showing ${Math.min(visible, current.length)}` : "";
 
@@ -219,9 +220,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("[data-action='csv']")?.addEventListener("click", () => {
     const cols = [["tm_id", m => m.id], ["short_name", m => m.shortName], ["title", m => m.title], ["organisation", m => m.organisation], ["year_received", m => m.yearReceived],
       ["workflow_step", m => m.workflowStep], ["workflow_stage", m => m.workflowStage], ["regulatory_stage", m => m.stage], ["regulatory_status", m => m.status],
-      ["NEW_STEP_STAGE", m => m.code], ["tsar_stage_label", m => codeLabel(m.code)], ["external_step_stage", m => m.evidenceUpdatedStage], ["progression_beyond_tsar", m => m.progressionBeyondTsar], ["case_study", m => m.caseStudy], ["endpoint", m => m.endpoint],
-      ["core_methodology", m => m.methodology], ["application_domain_expert", m => m.applicationDomainExpert], ["three_r", m => m.threeR], ["animal_use_impact", m => m.animalUseImpact],
-      ["bottlenecks", m => m.bottlenecks], ["bottleneck_count", m => m.bottleneckCount], ["review_level", reviewLevel], ["lifecycle_verification", m => m.lifecycleVerification]];
+      ["NEW_STEP_STAGE", m => m.code], ["external_evidence_step_stage", m => m.evidenceUpdatedStage], ["lifecycle_update_beyond_raw_tsar", m => m.progressionBeyondTsar], ["case_study", m => m.caseStudy], ["literature_completeness", m => m.literature], ["endpoint_category", m => m.endpoint],
+      ["core_methodology", m => m.methodology], ["researcher_application_domain", m => m.applicationDomainExpert], ["three_r", m => m.threeR], ["animal_use_impact", m => m.animalUseImpact],
+      ["documented_bottleneck_signals", m => m.bottlenecks], ["bottleneck_signal_count", m => m.bottleneckCount]];
     const csv = "﻿" + [cols.map(c => c[0]), ...current.map(m => cols.map(c => c[1](m)))].map(r => r.map(v => `"${String(v ?? "").replaceAll('"', '""')}"`).join(",")).join("\r\n");
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" })); a.download = `tsar-methods-${current.length}-of-${records.length}.csv`;
     document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 0);
