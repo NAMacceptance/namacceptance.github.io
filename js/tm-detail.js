@@ -339,7 +339,7 @@
     const body = `Hello,\n\nI would like to suggest an update or correction for the following TSAR method:\n\nMethod: ${method.shortName || method.title}\nTM ID: ${method.id}\n\nSuggested update or correction:\n\n\nSource or supporting link (optional):\n\n\nBest regards,`;
     const report = document.createElement("div");
     report.className = "modal-backdrop report-backdrop";
-    report.innerHTML = `<section class="record-modal report-modal" role="dialog" aria-modal="true" aria-labelledby="report-title"><header><div><span>SUGGEST AN UPDATE OR CORRECTION</span><h2 id="report-title">${esc(method.shortName || method.title)}</h2><p>${esc(method.id)} · A draft only — nothing is sent automatically.</p></div><button class="btn btn-sm" data-close-report aria-label="Close report draft">×</button></header><div class="record-body"><label class="report-field"><span>Recipient email</span><input type="email" data-report-recipient placeholder="Your email address" autocomplete="email"></label><label class="report-field"><span>Subject</span><input type="text" data-report-subject value="${esc(subject)}"></label><label class="report-field"><span>Message</span><textarea data-report-body rows="13">${esc(body)}</textarea></label><div class="report-actions"><button class="btn btn-outline-primary" type="button" data-copy-report>Copy draft</button><button class="btn btn-primary" type="button" data-open-email>Open email draft →</button></div></div></section>`;
+    report.innerHTML = `<section class="record-modal report-modal" role="dialog" aria-modal="true" aria-labelledby="report-title"><header><div><span>SUGGEST AN UPDATE OR CORRECTION</span><h2 id="report-title">${esc(method.shortName || method.title)}</h2><p>${esc(method.id)} · A draft only — nothing is sent automatically.</p></div><button class="btn btn-sm" data-close-report aria-label="Close report draft">×</button></header><div class="record-body"><label class="report-field"><span>Recipient email</span><input type="email" data-report-recipient value="r.vanrees@students.uu.nl" placeholder="Project contact email" autocomplete="off"></label><label class="report-field"><span>Subject</span><input type="text" data-report-subject value="${esc(subject)}"></label><label class="report-field"><span>Message</span><textarea data-report-body rows="13">${esc(body)}</textarea></label><div class="report-actions"><button class="btn btn-outline-primary" type="button" data-copy-report>Copy draft</button><button class="btn btn-primary" type="button" data-open-email>Open email draft →</button></div></div></section>`;
     const close = () => report.remove();
     const fields = () => ({
       recipient: report.querySelector("[data-report-recipient]").value.trim(),
@@ -360,7 +360,7 @@
       window.location.href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(draftSubject)}&body=${encodeURIComponent(draftBody)}`;
     });
     document.body.append(report);
-    report.querySelector("[data-report-recipient]").focus();
+    report.querySelector("[data-report-body]").focus();
   };
 
     const getDossierMarkup = (record, options = {}) => {

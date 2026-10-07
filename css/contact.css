@@ -1,0 +1,22 @@
+.contact-hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:30px;padding:30px;background:linear-gradient(120deg,#fff 45%,#edf8f5)}
+.contact-identity h2{margin:12px 0 9px;color:#123c60;font-size:clamp(23px,3vw,32px);line-height:1.2}
+.contact-identity h2 span{font-size:.65em;font-weight:500;white-space:nowrap}
+.contact-identity p,.contact-requests p,.contact-supervisor p,.contact-corrections p{color:#52697d;font-size:13px;line-height:1.75;max-width:70ch}
+.contact-identity .contact-role,.contact-supervisor .contact-position{color:#234f70;font-weight:700}
+.contact-email{display:inline-block;margin-top:10px;color:#00736d;font-size:clamp(15px,2vw,19px);font-weight:800;overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:4px}
+.contact-requests{align-self:center;border-left:1px solid #cce4e0;padding-left:28px}
+.contact-requests h3,.contact-supervisor h3{color:#174671;font-size:19px;line-height:1.35;margin:12px 0}
+.contact-requests .button-primary{display:inline-block;margin:10px 0}
+.contact-requests small{display:block;color:#61778b;font-size:11px;line-height:1.6}
+.contact-hero .button-primary,.contact-corrections .button-primary{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:11px 16px;border:1px solid #00736d;border-radius:7px;background:#00736d;color:#fff;font-size:12px;font-weight:800;text-decoration:none;line-height:1.4}
+.contact-hero .button-primary:hover,.contact-corrections .button-primary:hover{background:#005e59;border-color:#005e59}
+.contact-supervision .block-header{align-items:flex-start;flex-direction:column;gap:8px}
+.contact-supervision .block-header p{max-width:75ch;font-size:13px;line-height:1.6;margin:0}
+.contact-supervisors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.contact-supervisor{padding:25px;border-top:3px solid #00857c}
+.contact-supervisor a{display:inline-block;margin-top:12px;color:#00736d;font-size:12px;font-weight:800}
+.contact-corrections{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:26px;margin-top:26px}
+.contact-corrections h2{margin:10px 0;color:#174671;font-size:21px}
+.contact-corrections .button-primary{flex-shrink:0;white-space:nowrap}
+@media(max-width:900px){.contact-hero{grid-template-columns:1fr;gap:24px}.contact-requests{border-left:0;border-top:1px solid #cce4e0;padding:23px 0 0}.contact-corrections{align-items:flex-start;flex-direction:column;gap:15px}}
+@media(max-width:600px){.contact-hero,.contact-supervisor,.contact-corrections{padding:21px}.contact-supervisors{grid-template-columns:1fr}.contact-requests{padding-top:21px}}
